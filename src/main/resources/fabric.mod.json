@@ -1,0 +1,46 @@
+{
+	"schemaVersion": 1,
+	"id": "smitherz",
+	"version": "${version}",
+	"name": "SmitherZ",
+	"description": "Enhance your tools with upgrades",
+	"authors": [
+		"Globox_Z"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "MIT",
+	"icon": "assets/smitherz/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.smitherz.SmitherzMain"
+		],
+		"client": [
+			"net.smitherz.SmitherzClient"
+		],
+		"modmenu": [
+			"net.smitherz.config.ModMenuIntegration"
+		]
+	},
+	"mixins": [
+		"smitherz.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.14.21",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	},
+	"custom": {
+		"mc-publish": {
+			"modrinth": "X",
+			"curseforge": 0
+		}
+	}
+}

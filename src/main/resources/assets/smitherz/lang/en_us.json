@@ -1,0 +1,35 @@
+{
+    "text.autoconfig.smitherz.title": "SmitherZ Config",
+    "text.autoconfig.smitherz.option.maxGemSlots": "Max Gem Slots",
+    "text.autoconfig.smitherz.option.showZeroSlotsInfo": "Show Zero Slots Info",
+    "text.autoconfig.smitherz.option.showHoldShiftInfo": "Show Hold Shift Info",
+    "text.autoconfig.smitherz.option.defaultLinkChance": "Default Link Chance",
+    "text.autoconfig.smitherz.option.hammerExtraChance": "Hammer Extra Chance",
+    "text.autoconfig.smitherz.option.defaultGems": "Default Gems",
+
+    "item.smitherz.item_group": "SmitherZ",
+    "item.smitherz.smither_hammer": "Smither Hammer",
+    "item.smitherz.extraction_hammer": "Extraction Hammer",
+
+    "item.smitherz.strength_1_gem": "Strength I Gem",
+    "item.smitherz.strength_2_gem": "Strength II Gem",
+    "item.smitherz.strength_3_gem": "Strength III Gem",
+    "item.smitherz.strength_4_gem": "Strength IV Gem",
+    "item.smitherz.strength_5_gem": "Strength V Gem",
+
+    "item.smitherz.agility_1_gem": "Agility I Gem",
+    "item.smitherz.agility_2_gem": "Agility II Gem",
+    "item.smitherz.agility_3_gem": "Agility III Gem",
+    "item.smitherz.agility_4_gem": "Agility IV Gem",
+    "item.smitherz.agility_5_gem": "Agility V Gem",
+
+    "item.smitherz.zero_slots": "§70 Slots",
+    "item.modifiers.shift": "§7Hold Shift",
+    "item.modifiers.linked": "When Linked:",
+
+    "container.link": "Link Gear",
+    "screen.smitherz.smither_screen": "Link Gear",
+
+    "item.smitherz.link_bonus": "+%s Link Chance",
+    "item.smitherz.extraction_bonus": "+%s Extraction Chance"
+}
