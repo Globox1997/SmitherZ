@@ -8,14 +8,14 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.smitherz.network.SmitherClientPacket;
 
-public class SmitherTab extends InventoryTab {
+public class GrindstoneTab extends InventoryTab {
 
-    public SmitherTab(Text title, @Nullable Identifier texture, int preferedPos, Class<?>... screenClasses) {
+    public GrindstoneTab(Text title, @Nullable Identifier texture, int preferedPos, Class<?>... screenClasses) {
         super(title, texture, preferedPos, screenClasses);
     }
 
     @Override
     public void onClick(MinecraftClient client) {
-        SmitherClientPacket.writeC2SScreenPacket((int) client.mouse.getX(), (int) client.mouse.getY(), 1);
+        SmitherClientPacket.writeC2SScreenPacket((int) client.mouse.getX(), (int) client.mouse.getY(), 3);
     }
 }

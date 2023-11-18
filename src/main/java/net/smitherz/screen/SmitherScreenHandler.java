@@ -2,6 +2,7 @@ package net.smitherz.screen;
 
 import java.util.List;
 
+import net.libz.access.ScreenHandlerAccess;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -12,6 +13,7 @@ import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.WorldEvents;
 import net.smitherz.init.ConfigInit;
 import net.smitherz.init.ScreenInit;
 import net.smitherz.init.TagInit;
@@ -21,7 +23,7 @@ import net.smitherz.network.SmitherServerPacket;
 import net.smitherz.screen.widget.GemSlot;
 import net.smitherz.util.UpgradeHelper;
 
-public class SmitherScreenHandler extends ScreenHandler {
+public class SmitherScreenHandler extends ScreenHandler implements ScreenHandlerAccess {
 
     private final Inventory inventory = new SimpleInventory(ConfigInit.CONFIG.maxGemSlots + 2) {
         @Override
@@ -77,7 +79,7 @@ public class SmitherScreenHandler extends ScreenHandler {
         this.addSlot(new Slot(this.inventory, 1, 106, 19) {
             @Override
             public boolean canInsert(ItemStack stack) {
-                return stack.isIn(TagInit.BONUS_ITEMS) || stack.isIn(TagInit.EXTRACTION_ITEMS);
+                return stack.isIn(TagInit.BONUS_ITEMS);
             }
         });
 
@@ -136,6 +138,9 @@ public class SmitherScreenHandler extends ScreenHandler {
         if (this.getSlot(0).hasStack() && !getUnlickedGem().isEmpty() && this.getSlot(0).getStack().getItem() instanceof Upgradeable) {
             UpgradeHelper.addStackToUpgradeable(this.getSlot(0).getStack(), getUnlickedGem(), this.getSlot(1).getStack());
             updateGemSlots(this.getSlot(0).getStack());
+            context.run((world, pos) -> {
+                world.syncWorldEvent(WorldEvents.SMITHING_TABLE_USED, pos, 0);
+            });
         }
 
     }
@@ -281,10 +286,12 @@ public class SmitherScreenHandler extends ScreenHandler {
         return slot.inventory != this.inventory && super.canInsertIntoSlot(stack, slot);
     }
 
+    @Override
     public void setPos(BlockPos pos) {
         this.pos = pos;
     }
 
+    @Override
     public BlockPos getPos() {
         return this.pos;
     }

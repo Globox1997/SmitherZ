@@ -16,7 +16,7 @@ public class SmithingTab extends InventoryTab {
 
     @Override
     public void onClick(MinecraftClient client) {
-        SmitherClientPacket.writeC2SScreenPacket((int) client.mouse.getX(), (int) client.mouse.getY(), false);
+        SmitherClientPacket.writeC2SScreenPacket((int) client.mouse.getX(), (int) client.mouse.getY(), 2);
     }
 
 }

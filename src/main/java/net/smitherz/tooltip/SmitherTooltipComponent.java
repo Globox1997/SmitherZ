@@ -41,13 +41,11 @@ public class SmitherTooltipComponent implements TooltipComponent {
     @Override
     public int getHeight() {
         if (InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 340)) {
-            // return 20 + getTooltipText().size() * 9;
-            // return 29 + getTooltipText().size() * 9;
-            // System.out.println(getTooltipText().size());
-            return 18 + getTooltipText().size() * 9;
+            return 25 + getTooltipText().size() * 9;
+        } else if (!ConfigInit.CONFIG.showHoldShiftInfo) {
+            return 11;
         }
-        // return 18;
-        return 27;
+        return 23;
     }
 
     @Override
@@ -56,8 +54,8 @@ public class SmitherTooltipComponent implements TooltipComponent {
             int minTextWidth = 0;
             List<Text> list = getTooltipText();
             for (int i = 0; i < list.size(); i++) {
-                if (minTextWidth < textRenderer.getWidth(list.get(i))) {
-                    minTextWidth = textRenderer.getWidth(list.get(i));
+                if (minTextWidth < textRenderer.getWidth(list.get(i)) + 12) {
+                    minTextWidth = textRenderer.getWidth(list.get(i)) + 12;
                 }
             }
             return Math.max(this.gemSlotSize * 18, minTextWidth);
@@ -67,22 +65,23 @@ public class SmitherTooltipComponent implements TooltipComponent {
 
     @Override
     public void drawItems(TextRenderer textRenderer, int x, int y, DrawContext context) {
-        // HERE WORK !!!
-        if (ConfigInit.CONFIG.showHoldShiftInfo) {
-
+        boolean shiftKeyPressed = InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 340);
+        if (ConfigInit.CONFIG.showHoldShiftInfo && !shiftKeyPressed) {
+            context.drawTexture(TEXTURE, x, y + 20, 0, 18, 9, 10, 128, 128);
+            context.drawText(textRenderer, Text.translatable("item.modifiers.shift"), x + 12, y + 22, 0, true);
         }
+        if (shiftKeyPressed) {
+            context.drawTexture(TEXTURE, x, y + 20, 0, 18, 9, 10, 128, 128);
+            context.drawText(textRenderer, Text.translatable("item.modifiers.pressed_shift"), x + 12, y + 22, 0, true);
 
-        if (InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 340)) {
             List<Text> list = getTooltipText();
             if (!list.isEmpty()) {
-                int o = 20;
+                int o = 33;
                 for (int i = 0; i < list.size(); i++) {
-                    context.drawText(textRenderer, list.get(i), x, y + o, 0, false);
+                    context.drawText(textRenderer, list.get(i), x + 12, y + o, 0, true);
                     o += 9;
                 }
             }
-        } else {
-            context.drawText(textRenderer, Text.translatable("item.modifiers.shift"), x, y + 20, 0, false);
         }
         if (this.gemSlotSize > 0) {
             for (int i = 0; i < this.gemSlotSize; i++) {

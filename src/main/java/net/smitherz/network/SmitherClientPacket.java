@@ -23,11 +23,12 @@ public class SmitherClientPacket {
         });
     }
 
-    public static void writeC2SScreenPacket(int mouseX, int mouseY, boolean smitherScreen) {
+    // screenId: 1 = smithing (vanilla), 2 = smither, 3 = grindstone, 4 = grinder
+    public static void writeC2SScreenPacket(int mouseX, int mouseY, int screenId) {
         PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
         buf.writeInt(mouseX);
         buf.writeInt(mouseY);
-        buf.writeBoolean(smitherScreen);
+        buf.writeInt(screenId);
         CustomPayloadC2SPacket packet = new CustomPayloadC2SPacket(SmitherServerPacket.SET_SCREEN, buf);
         MinecraftClient.getInstance().getNetworkHandler().sendPacket(packet);
     }

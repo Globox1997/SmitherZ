@@ -44,7 +44,7 @@ public class GemSlot extends Slot {
 
     @Override
     public boolean canInsert(ItemStack stack) {
-        if (stack.getItem() instanceof Gem && !((Gem) stack.getItem()).canLinkToItemStack(stack)) {
+        if (stack.getItem() instanceof Gem gem && !gem.canLinkToItemStack(this.inventory.getStack(0))) {
             return false;
         }
         return this.enabled && !this.linked && (stack.getItem() instanceof Gem || stack.isIn(TagInit.GEMS));

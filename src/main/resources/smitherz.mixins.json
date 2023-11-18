@@ -6,12 +6,14 @@
 		"ItemMixin",
 		"ToolItemMixin",
 		"ArmorItemMixin",
-		"SmithingScreenHandlerMixin"
+		"SmithingScreenHandlerMixin",
+		"GrindstoneScreenHandlerMixin"
 	],
 	"client": [
 		"client.SmithingScreenMixin",
 		"client.HandledScreenMixin",
-		"client.ItemStackClientMixin"
+		"client.ItemStackClientMixin",
+		"client.GrindstoneScreenMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

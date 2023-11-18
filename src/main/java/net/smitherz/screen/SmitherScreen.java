@@ -52,40 +52,9 @@ public class SmitherScreen extends HandledScreen<SmitherScreenHandler> implement
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         this.renderBackground(context);
-        // RenderSystem.disableBlend();
-
         super.render(context, mouseX, mouseY, delta);
         this.drawMouseoverTooltip(context, mouseX, mouseY);
-
-        // if (!this.getScreenHandler().getSlot(0).getStack().isEmpty()) {
-        // ItemStack stack = this.getScreenHandler().getSlot(0).getStack();
-        // int gemSlotSize = UpgradeHelper.getGemSlotSize(stack);
-        // for (int i = 0; i < gemSlotSize; i++) {
-        // Slot slot = this.getScreenHandler().getSlot(i + 2);
-        // context.drawTexture(TEXTURE, this.x + 34 + i * 18, this.y + 42, 0, 166, 18, 18);
-        // if (!slot.getStack().isEmpty()) {
-        // // Check position
-        // // context.drawItem(slot.getStack(), this.x + 34 + i * 18, this.y + 42);
-        // }
-
-        // // if (!this.isPointOverSlot(slot, mouseX, mouseY) || !slot.isEnabled())
-        // // continue;
-        // // if (!this.focusedSlot.canBeHighlighted())
-        // // continue;
-        // // HandledScreen.drawSlotHighlight(context, this.x + this.focusedSlot.x, this.y + this.focusedSlot.y, 0);
-        // }
-        // }
-
-        // if (this.isPointWithinBounds(148, 18, 18, 18, (double) mouseX, (double) mouseY) && !this.getScreenHandler().getSlot(1).getStack().isEmpty()) {
-        // List<Text> list = new ArrayList<>();
-        // context.drawTooltip(this.textRenderer, list, mouseX, mouseY);
-        // }
-
     }
-
-    // private boolean isPointOverSlot(Slot slot, double pointX, double pointY) {
-    // return this.isPointWithinBounds(slot.x, slot.y, 16, 16, pointX, pointY);
-    // }
 
     @Override
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {

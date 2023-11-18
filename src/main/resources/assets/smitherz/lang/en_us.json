@@ -4,6 +4,7 @@
     "text.autoconfig.smitherz.option.showZeroSlotsInfo": "Show Zero Slots Info",
     "text.autoconfig.smitherz.option.showHoldShiftInfo": "Show Hold Shift Info",
     "text.autoconfig.smitherz.option.defaultLinkChance": "Default Link Chance",
+    "text.autoconfig.smitherz.option.defaultUnlinkChance": "Default Unlink Chance",
     "text.autoconfig.smitherz.option.hammerExtraChance": "Hammer Extra Chance",
     "text.autoconfig.smitherz.option.defaultGems": "Default Gems",
 
@@ -17,18 +18,39 @@
     "item.smitherz.strength_4_gem": "Strength IV Gem",
     "item.smitherz.strength_5_gem": "Strength V Gem",
 
-    "item.smitherz.agility_1_gem": "Agility I Gem",
-    "item.smitherz.agility_2_gem": "Agility II Gem",
-    "item.smitherz.agility_3_gem": "Agility III Gem",
-    "item.smitherz.agility_4_gem": "Agility IV Gem",
-    "item.smitherz.agility_5_gem": "Agility V Gem",
+    "item.smitherz.defense_1_gem": "Defense I Gem",
+    "item.smitherz.defense_2_gem": "Defense II Gem",
+    "item.smitherz.defense_3_gem": "Defense III Gem",
+    "item.smitherz.defense_4_gem": "Defense IV Gem",
+    "item.smitherz.defense_5_gem": "Defense V Gem",
+
+    "item.smitherz.health_1_gem": "Health I Gem",
+    "item.smitherz.health_2_gem": "Health II Gem",
+    "item.smitherz.health_3_gem": "Health III Gem",
+    "item.smitherz.health_4_gem": "Health IV Gem",
+    "item.smitherz.health_5_gem": "Health V Gem",
+
+    "item.smitherz.speed_1_gem": "Speed I Gem",
+    "item.smitherz.speed_2_gem": "Speed II Gem",
+    "item.smitherz.speed_3_gem": "Speed III Gem",
+    "item.smitherz.speed_4_gem": "Speed IV Gem",
+    "item.smitherz.speed_5_gem": "Speed V Gem",
+
+    "item.smitherz.attack_speed_1_gem": "Attack Speed I Gem",
+    "item.smitherz.attack_speed_2_gem": "Attack Speed II Gem",
+    "item.smitherz.attack_speed_3_gem": "Attack Speed III Gem",
+    "item.smitherz.attack_speed_4_gem": "Attack Speed IV Gem",
+    "item.smitherz.attack_speed_5_gem": "Attack Speed V Gem",
 
     "item.smitherz.zero_slots": "§70 Slots",
     "item.modifiers.shift": "§7Hold Shift",
+    "item.modifiers.pressed_shift": "§7Gem Attributes",
     "item.modifiers.linked": "When Linked:",
 
     "container.link": "Link Gear",
+    "container.unlink": "Unlink Gear",
     "screen.smitherz.smither_screen": "Link Gear",
+    "screen.smitherz.grinder_screen": "Unlink Gear",
 
     "item.smitherz.link_bonus": "+%s Link Chance",
     "item.smitherz.extraction_bonus": "+%s Extraction Chance"

@@ -8,20 +8,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.libz.access.ScreenHandlerAccess;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.screen.GrindstoneScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.screen.SmithingScreenHandler;
 import net.minecraft.util.math.BlockPos;
 
-@Mixin(SmithingScreenHandler.class)
-public class SmithingScreenHandlerMixin implements ScreenHandlerAccess {
+@Mixin(GrindstoneScreenHandler.class)
+public class GrindstoneScreenHandlerMixin implements ScreenHandlerAccess {
 
     @Unique
     private BlockPos pos;
 
-    @Inject(method = "Lnet/minecraft/screen/SmithingScreenHandler;<init>(ILnet/minecraft/entity/player/PlayerInventory;Lnet/minecraft/screen/ScreenHandlerContext;)V", at = @At("TAIL"))
+    @Inject(method = "Lnet/minecraft/screen/GrindstoneScreenHandler;<init>(ILnet/minecraft/entity/player/PlayerInventory;Lnet/minecraft/screen/ScreenHandlerContext;)V", at = @At("TAIL"))
     private void initMixin(int syncId, PlayerInventory inventory, ScreenHandlerContext context, CallbackInfo info) {
         context.run((world, pos) -> {
-            SmithingScreenHandlerMixin.this.setPos(pos);
+            GrindstoneScreenHandlerMixin.this.setPos(pos);
         });
 
     }
