@@ -55,6 +55,16 @@ public class UpgradeHelper {
             if (!gem.canLinkToItemStack(upgradeable)) {
                 return false;
             }
+            if (!ConfigInit.CONFIG.canLinkSameGem && upgradeable.hasNbt()) {
+                if (upgradeable.getNbt().contains(GEMS_KEY)) {
+                    NbtList nbtList = upgradeable.getNbt().getList(GEMS_KEY, 9);
+                    for (int i = 0; i < nbtList.size(); i++) {
+                        if (ItemStack.fromNbt(nbtList.getCompound(i)).isOf(gemStack.getItem())) {
+                            return false;
+                        }
+                    }
+                }
+            }
             linkChance = gem.getLinkChance();
         } else {
             linkChance = ConfigInit.CONFIG.defaultLinkChance;

@@ -18,4 +18,5 @@ public class SmitherConfig implements ConfigData {
     public float hammerExtraChance = 0.2f;
     @Comment("Use if gems provided by global datapack")
     public boolean defaultGems = true;
+    public boolean canLinkSameGem = false;
 }

@@ -7,6 +7,7 @@
     "text.autoconfig.smitherz.option.defaultUnlinkChance": "Default Unlink Chance",
     "text.autoconfig.smitherz.option.hammerExtraChance": "Hammer Extra Chance",
     "text.autoconfig.smitherz.option.defaultGems": "Default Gems",
+    "text.autoconfig.smitherz.option.canLinkSameGem": "Can Link Same Gem",
 
     "item.smitherz.item_group": "SmitherZ",
     "item.smitherz.smither_hammer": "Smither Hammer",
