@@ -59,8 +59,6 @@ public class UpgradeLoader implements SimpleSynchronousResourceReloadListener {
         SmitherzMain.gemDropMap.clear();
         SmitherzMain.gemRpgDropMap.clear();
         if (ConfigInit.CONFIG.mobsCanDropGems) {
-            // public static final Map<EntityType<?>, LinkedHashMap<Integer, Map<Item, Float>>> gemDropMap = new HashMap<EntityType<?>, LinkedHashMap<Integer, Map<Item, Float>>>();
-            // public static final Map<Float, Integer> gemDropRpgDifficultyMultiplierMap = new HashMap<Float, Integer>();
             resourceManager.findResources("gem_drops", id -> id.getPath().endsWith(".json")).forEach((id, resourceRef) -> {
                 try {
                     InputStream stream = resourceRef.getInputStream();
