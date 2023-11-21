@@ -12,7 +12,7 @@
             "minecraft:spider",
             "minecraft:creeper",
             "minecraft:husk",
-            "mineraft:phantom",
+            "minecraft:phantom",
             "minecraft:zombie",
             "minecraft:slime",
             "minecraft:skeleton",
@@ -24,18 +24,18 @@
     },
     "rarity_1": {
         "items": [
-            "smitherz:strength_1_gem",
-            "smitherz:defense_1_gem",
-            "smitherz:health_1_gem",
-            "smitherz:speed_1_gem",
-            "smitherz:attack_speed_1_gem"
+            "smitherz:strength_2_gem",
+            "smitherz:defense_2_gem",
+            "smitherz:health_2_gem",
+            "smitherz:speed_2_gem",
+            "smitherz:attack_speed_2_gem"
         ],
         "drop_chance": 0.005,
         "mob_types": [
             "minecraft:spider",
             "minecraft:creeper",
             "minecraft:husk",
-            "mineraft:phantom",
+            "minecraft:phantom",
             "minecraft:zombie",
             "minecraft:slime",
             "minecraft:skeleton",
