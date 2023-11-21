@@ -17,7 +17,7 @@ public class ModelInit {
     public static void init() {
         ARRP_RESOURCE_PACK = RuntimeResourcePack.create("smitherz:gems");
         // Generate models
-        Iterator<String> items = ItemInit.ITEMS.iterator();
+        Iterator<String> items = ItemInit.ITEM_IDS.iterator();
         while (items.hasNext()) {
             String item = items.next();
             if (item.contains("hammer")) {

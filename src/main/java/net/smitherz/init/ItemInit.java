@@ -27,7 +27,7 @@ public class ItemInit {
     // Item Group
     public static final RegistryKey<ItemGroup> SMITHERZ_ITEM_GROUP = RegistryKey.of(RegistryKeys.ITEM_GROUP, new Identifier("smitherz", "item_group"));
     // Lists
-    public static final ArrayList<String> ITEMS = new ArrayList<String>();
+    public static final ArrayList<String> ITEM_IDS = new ArrayList<String>();
 
     public static final Item SMITHER_HAMMER = register("smither_hammer", new Hammer(new Item.Settings().rarity(Rarity.UNCOMMON)));
     public static final Item EXTRACTION_HAMMER = register("extraction_hammer", new Hammer(new Item.Settings().rarity(Rarity.UNCOMMON)));
@@ -62,8 +62,10 @@ public class ItemInit {
     public static Item ATTACK_SPEED_IV;
     public static Item ATTACK_SPEED_V;
 
+    public static final ArrayList<ArrayList<Item>> ITEM_CATEGORIES = new ArrayList<ArrayList<Item>>();
+
     public static Item register(String id, Item item) {
-        ITEMS.add(id);
+        ITEM_IDS.add(id);
         return register(new Identifier("smitherz", id), item);
     }
 

@@ -23,7 +23,7 @@ import net.smitherz.item.Upgradeable;
 public class UpgradeHelper {
 
     private static final String GEMS_KEY = "Gems";
-    private static final Random RANDOM = new Random();
+    public static final Random RANDOM = new Random();
 
     public static void spawnItemContents(ItemEntity itemEntity, Stream<ItemStack> contents) {
         World world = itemEntity.getWorld();
@@ -139,7 +139,7 @@ public class UpgradeHelper {
             }
 
             if (!SmitherzMain.isTieredLoaded) {
-                nbtCompound.putInt("GemSlots", skewedRandomInt(ConfigInit.CONFIG.maxGemSlots, RANDOM));
+                nbtCompound.putInt("GemSlots", skewedRandomInt(ConfigInit.CONFIG.maxGemSlots));
             } else {
                 if (!nbtCompound.isEmpty()) {
                     if (nbtCompound.contains("Tiered") && nbtCompound.getCompound("Tiered").contains("Tier")
@@ -168,10 +168,10 @@ public class UpgradeHelper {
         return 0;
     }
 
-    private static int skewedRandomInt(int maxValue, Random random) {
+    public static int skewedRandomInt(int maxValue) {
         double exponent = 1.5; // Adjust this value to control skewness
         // Generate a random double between 0.0 (inclusive) and 1.0 (exclusive)
-        double randomValue = random.nextDouble();
+        double randomValue = RANDOM.nextDouble();
         // Apply the exponential function to skew the distribution
         double skewedValue = Math.pow(randomValue, exponent);
         // Map the skewed value to the desired range

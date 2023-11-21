@@ -6,3 +6,18 @@ SmitherZ is a mod built for the [Fabric Loader](https://fabricmc.net/). It requi
 
 ### License
 SmitherZ is licensed under MIT.
+
+### Datapack
+{
+    "rarity_0": {
+        "items": [
+            "smitherz:strength_1_gem",
+            "smitherz:strength_2_gem"
+        ],
+        "drop_chance": 0.01, // chance for droping a random item of the item list
+        "mob_types": [
+            "minecraft:spider" // only mobentity types
+        ],
+        "rarity_group": 0, // for general rarity
+        "difficulty_multiplier": 1.1 // rpg difficulty compat
+    }

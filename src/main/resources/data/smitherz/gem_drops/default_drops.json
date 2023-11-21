@@ -1,0 +1,112 @@
+{
+    "rarity_0": {
+        "items": [
+            "smitherz:strength_1_gem",
+            "smitherz:defense_1_gem",
+            "smitherz:health_1_gem",
+            "smitherz:speed_1_gem",
+            "smitherz:attack_speed_1_gem"
+        ],
+        "drop_chance": 0.01,
+        "mob_types": [
+            "minecraft:spider",
+            "minecraft:creeper",
+            "minecraft:husk",
+            "mineraft:phantom",
+            "minecraft:zombie",
+            "minecraft:slime",
+            "minecraft:skeleton",
+            "minecraft:cave_spider",
+            "minecraft:zombie_villager"
+        ],
+        "rarity_group": 0,
+        "difficulty_multiplier": 1.0
+    },
+    "rarity_1": {
+        "items": [
+            "smitherz:strength_1_gem",
+            "smitherz:defense_1_gem",
+            "smitherz:health_1_gem",
+            "smitherz:speed_1_gem",
+            "smitherz:attack_speed_1_gem"
+        ],
+        "drop_chance": 0.005,
+        "mob_types": [
+            "minecraft:spider",
+            "minecraft:creeper",
+            "minecraft:husk",
+            "mineraft:phantom",
+            "minecraft:zombie",
+            "minecraft:slime",
+            "minecraft:skeleton",
+            "minecraft:cave_spider",
+            "minecraft:zombie_villager"
+        ],
+        "rarity_group": 1,
+        "difficulty_multiplier": 1.5
+    },
+    "rarity_2": {
+        "items": [
+            "smitherz:strength_2_gem",
+            "smitherz:defense_2_gem",
+            "smitherz:health_2_gem",
+            "smitherz:speed_2_gem",
+            "smitherz:attack_speed_2_gem"
+        ],
+        "drop_chance": 0.005,
+        "mob_types": [
+            "minecraft:blaze",
+            "minecraft:piglin",
+            "minecraft:piglin_brute",
+            "minecraft:zoglin",
+            "minecraft:zombified_piglin",
+            "minecraft:wither_skeleton",
+            "minecraft:ghast",
+            "minecraft:hoglin",
+            "minecraft:magma_cube",
+            "minecraft:stray",
+            "minecraft:drowned",
+            "minecraft:guardian",
+            "minecraft:shulker",
+            "minecraft:enderman"
+        ],
+        "rarity_group": 2,
+        "difficulty_multiplier": 2.0
+    },
+    "rarity_3": {
+        "items": [
+            "smitherz:strength_3_gem",
+            "smitherz:defense_3_gem",
+            "smitherz:health_3_gem",
+            "smitherz:speed_3_gem",
+            "smitherz:attack_speed_3_gem"
+        ],
+        "drop_chance": 0.005,
+        "mob_types": [
+            "minecraft:evoker",
+            "minecraft:pillager",
+            "minecraft:ravager",
+            "minecraft:vindicator",
+            "minecraft:witch"
+        ],
+        "rarity_group": 3,
+        "difficulty_multiplier": 2.0
+    },
+    "rarity_4": {
+        "items": [
+            "smitherz:strength_4_gem",
+            "smitherz:defense_4_gem",
+            "smitherz:health_4_gem",
+            "smitherz:speed_4_gem",
+            "smitherz:attack_speed_4_gem"
+        ],
+        "drop_chance": 0.005,
+        "mob_types": [
+            "minecraft:elder_guardian",
+            "minecraft:warden",
+            "minecraft:wither"
+        ],
+        "rarity_group": 4,
+        "difficulty_multiplier": 2.0
+    }
+}

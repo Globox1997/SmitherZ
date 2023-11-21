@@ -16,6 +16,7 @@ import java.util.zip.ZipFile;
 
 import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
 import net.fabricmc.fabric.api.item.v1.ModifyItemAttributeModifiersCallback;
+import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -30,6 +31,9 @@ import net.smitherz.util.UpgradeHelper;
 public class EventInit {
 
     public static void init() {
+
+        LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
+        });
 
         TooltipComponentCallback.EVENT.register(data -> {
             return new SmitherTooltipComponent((SmitherTooltipData) data);

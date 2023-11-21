@@ -19,4 +19,6 @@ public class SmitherConfig implements ConfigData {
     @Comment("Use if gems provided by global datapack")
     public boolean defaultGems = true;
     public boolean canLinkSameGem = false;
+    @Comment("Turn it off if you set drops via datapacks")
+    public boolean mobsCanDropGems = true;
 }

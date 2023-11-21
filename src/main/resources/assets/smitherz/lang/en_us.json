@@ -8,6 +8,7 @@
     "text.autoconfig.smitherz.option.hammerExtraChance": "Hammer Extra Chance",
     "text.autoconfig.smitherz.option.defaultGems": "Default Gems",
     "text.autoconfig.smitherz.option.canLinkSameGem": "Can Link Same Gem",
+    "text.autoconfig.smitherz.option.mobsCanDropGems": "Mobs Can Drop Gems",
 
     "item.smitherz.item_group": "SmitherZ",
     "item.smitherz.smither_hammer": "Smither Hammer",
