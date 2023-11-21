@@ -69,7 +69,8 @@ public class UpgradeHelper {
         } else {
             linkChance = ConfigInit.CONFIG.defaultLinkChance;
         }
-        if (hammer != null && !hammer.isEmpty() && hammer.isIn(TagInit.BONUS_ITEMS)) {
+        boolean hasHammer = hammer != null && !hammer.isEmpty() && hammer.isIn(TagInit.BONUS_ITEMS);
+        if (hasHammer) {
             linkChance = linkChance * (1.0f + ConfigInit.CONFIG.hammerExtraChance);
             hammer.decrement(1);
         }
@@ -86,7 +87,7 @@ public class UpgradeHelper {
             itemStack2.writeNbt(nbtCompound3);
             nbtList.add(nbtCompound3);
 
-        } else if (gemStack.getItem() instanceof Gem gem && gem.getLinkBreakChance() > 0.00001f && RANDOM.nextFloat() <= gem.getLinkBreakChance()) {
+        } else if (!hasHammer && gemStack.getItem() instanceof Gem gem && gem.getLinkBreakChance() > 0.00001f && RANDOM.nextFloat() <= gem.getLinkBreakChance()) {
             upgradeable.decrement(1);
         }
         if (!upgradeable.isEmpty() && ConfigInit.CONFIG.linkBreakChance > 0.00001f && RANDOM.nextFloat() < ConfigInit.CONFIG.linkBreakChance) {
@@ -105,7 +106,8 @@ public class UpgradeHelper {
         if (itemStack2.hasNbt() && itemStack2.getNbt().contains(GEMS_KEY)) {
 
             float unlinkChance = ConfigInit.CONFIG.defaultUnlinkChance;
-            if (hammer != null && !hammer.isEmpty() && hammer.isIn(TagInit.BONUS_ITEMS)) {
+            boolean hasHammer = hammer != null && !hammer.isEmpty() && hammer.isIn(TagInit.BONUS_ITEMS);
+            if (hasHammer) {
                 unlinkChance = unlinkChance * (1.0f + ConfigInit.CONFIG.hammerExtraChance);
             }
 
@@ -113,8 +115,14 @@ public class UpgradeHelper {
                 List<ItemStack> list = new ArrayList<ItemStack>();
                 NbtList nbtList = itemStack2.getNbt().copy().getList(GEMS_KEY, NbtElement.COMPOUND_TYPE);
                 itemStack2.getNbt().remove(GEMS_KEY);
-                if (unlinkChance >= RANDOM.nextFloat()) {
-                    list.add(ItemStack.fromNbt(nbtList.getCompound(nbtList.size() - 1)));
+
+                ItemStack stack = ItemStack.fromNbt(nbtList.getCompound(nbtList.size() - 1));
+                if (stack.getItem() instanceof Gem gem) {
+                    if (RANDOM.nextFloat() <= (gem.getUnlinkChance() * (hasHammer ? (1.0f + ConfigInit.CONFIG.hammerExtraChance) : 1.0f))) {
+                        list.add(stack);
+                    }
+                } else if (unlinkChance >= RANDOM.nextFloat()) {
+                    list.add(stack);
                 }
                 nbtList.remove(nbtList.size() - 1);
                 itemStack2.getNbt().put(GEMS_KEY, nbtList);
@@ -122,9 +130,14 @@ public class UpgradeHelper {
                 return list;
             } else {
                 List<ItemStack> list = new ArrayList<ItemStack>();
-                if (unlinkChance >= RANDOM.nextFloat()) {
-                    NbtList nbtList = itemStack2.getNbt().getList(GEMS_KEY, 9);
-                    for (int i = 0; i < nbtList.size(); i++) {
+                NbtList nbtList = itemStack2.getNbt().getList(GEMS_KEY, 9);
+                for (int i = 0; i < nbtList.size(); i++) {
+                    ItemStack stack = ItemStack.fromNbt(nbtList.getCompound(i));
+                    if (stack.getItem() instanceof Gem gem) {
+                        if (RANDOM.nextFloat() <= (gem.getUnlinkChance() * (hasHammer ? (1.0f + ConfigInit.CONFIG.hammerExtraChance) : 1.0f))) {
+                            list.add(stack);
+                        }
+                    } else if (unlinkChance >= RANDOM.nextFloat()) {
                         list.add(ItemStack.fromNbt(nbtList.getCompound(i)));
                     }
                 }
@@ -135,6 +148,7 @@ public class UpgradeHelper {
         }
 
         return List.of(ItemStack.EMPTY);
+
     }
 
     public static void setGemSlots(ItemStack itemStack) {
