@@ -86,9 +86,11 @@ public class UpgradeHelper {
             itemStack2.writeNbt(nbtCompound3);
             nbtList.add(nbtCompound3);
 
-            if (ConfigInit.CONFIG.linkBreakChance > 0.00000001f && RANDOM.nextFloat() < ConfigInit.CONFIG.linkBreakChance) {
-                upgradeable.decrement(1);
-            }
+        } else if (gemStack.getItem() instanceof Gem gem && gem.getLinkBreakChance() > 0.00001f && RANDOM.nextFloat() <= gem.getLinkBreakChance()) {
+            upgradeable.decrement(1);
+        }
+        if (!upgradeable.isEmpty() && ConfigInit.CONFIG.linkBreakChance > 0.00001f && RANDOM.nextFloat() < ConfigInit.CONFIG.linkBreakChance) {
+            upgradeable.decrement(1);
         }
         gemStack.decrement(1);
         return true;

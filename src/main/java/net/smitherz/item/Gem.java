@@ -16,18 +16,24 @@ public class Gem extends Item {
 
     private final Multimap<EntityAttribute, EntityAttributeModifier> entityAttributeModifiers;
     private final float linkChance;
+    private final float linkBreakChance;
     @Nullable
     private final TagKey<Item> restrictionTag;
 
-    public Gem(Settings settings, Multimap<EntityAttribute, EntityAttributeModifier> entityAttributeModifiers, float linkChance, @Nullable TagKey<Item> restrictionTag) {
+    public Gem(Settings settings, Multimap<EntityAttribute, EntityAttributeModifier> entityAttributeModifiers, float linkChance, float linkBreakChance, @Nullable TagKey<Item> restrictionTag) {
         super(settings);
         this.entityAttributeModifiers = entityAttributeModifiers;
         this.linkChance = linkChance;
+        this.linkBreakChance = linkBreakChance;
         this.restrictionTag = restrictionTag;
     }
 
     public float getLinkChance() {
         return this.linkChance;
+    }
+
+    public float getLinkBreakChance() {
+        return this.linkBreakChance;
     }
 
     // @Override

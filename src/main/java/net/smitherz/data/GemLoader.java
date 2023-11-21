@@ -44,7 +44,7 @@ public class GemLoader {
                             new GemEntityAttributeModifier(attributejsonObject.get("type").getAsString(), attributejsonObject.get("modifier").getAsJsonObject().get("amount").getAsFloat(),
                                     EntityAttributeModifier.Operation.valueOf(attributejsonObject.get("modifier").getAsJsonObject().get("operation").getAsString().toUpperCase())));
                 }
-                ItemInit.register(entry.getKey(), new Gem(new Item.Settings(), map, jsonObject.get("chance").getAsFloat(),
+                ItemInit.register(entry.getKey(), new Gem(new Item.Settings(), map, jsonObject.get("chance").getAsFloat(), jsonObject.get("break_chance").getAsFloat(),
                         jsonObject.has("tag") && jsonObject.get("tag") != null ? TagKey.of(RegistryKeys.ITEM, new Identifier("id")) : null));
 
             }
