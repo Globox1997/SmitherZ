@@ -85,6 +85,10 @@ public class UpgradeHelper {
             NbtCompound nbtCompound3 = new NbtCompound();
             itemStack2.writeNbt(nbtCompound3);
             nbtList.add(nbtCompound3);
+
+            if (ConfigInit.CONFIG.linkBreakChance > 0.00000001f && RANDOM.nextFloat() < ConfigInit.CONFIG.linkBreakChance) {
+                upgradeable.decrement(1);
+            }
         }
         gemStack.decrement(1);
         return true;

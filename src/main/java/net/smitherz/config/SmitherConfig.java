@@ -21,4 +21,5 @@ public class SmitherConfig implements ConfigData {
     public boolean canLinkSameGem = false;
     @Comment("Turn it off if you set drops via datapacks")
     public boolean mobsCanDropGems = true;
+    public float linkBreakChance = 0.0001f;
 }

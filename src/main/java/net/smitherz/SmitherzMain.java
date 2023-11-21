@@ -37,7 +37,6 @@ public class SmitherzMain implements ModInitializer {
 
     // Can failing to link break my gear?Some lapis can break your gear if they fail. These include; Accessory, Sonic, Flash, Horizon, Absorption and level 7 debuff lapis. In order to save your gear
     // in the event of a failed link you need to have a lucky charm in your possession. The charm is only good for one linking attempt.
-    // Note: There is an extremely small chance for any lapis to break your gear.
 
     // You get additional linking % every 20 levels on your character, guild house blacksmith upgrades also add additional %.
 

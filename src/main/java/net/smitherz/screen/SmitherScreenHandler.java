@@ -12,6 +12,9 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldEvents;
 import net.smitherz.init.ConfigInit;
@@ -141,6 +144,13 @@ public class SmitherScreenHandler extends ScreenHandler implements ScreenHandler
             context.run((world, pos) -> {
                 world.syncWorldEvent(WorldEvents.SMITHING_TABLE_USED, pos, 0);
             });
+            if (!this.getSlot(0).hasStack()) {
+                context.run((world, pos) -> {
+                    if (world instanceof ServerWorld serverWorld) {
+                        serverWorld.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_ITEM_BREAK, SoundCategory.BLOCKS, 1.0f, 1.0f, serverWorld.getRandom().nextLong());
+                    }
+                });
+            }
         }
 
     }
