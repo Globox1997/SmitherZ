@@ -44,7 +44,7 @@ public class ItemStackClientMixin {
     }
 
     @ModifyExpressionValue(method = "getTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/text/Text;translatable(Ljava/lang/String;)Lnet/minecraft/text/MutableText;", ordinal = 1))
-    private MutableText modifyTooltipEquipmentSlot(MutableText original) {
+    private MutableText modifyTooltipEquipmentSlotMixin(MutableText original) {
         if (this.isGem) {
             return Text.translatable("item.modifiers.linked").formatted(Formatting.GRAY);
         }

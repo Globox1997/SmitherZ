@@ -57,7 +57,7 @@ dependencies {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 	// Extras
-	modImplementation("io.github.llamalad7:mixinextras-fabric:0.2.0")
+	modCompileOnly annotationProcessor ("io.github.llamalad7:mixinextras-fabric:0.2.0")
 }
 
 processResources {
