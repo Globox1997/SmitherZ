@@ -13,6 +13,7 @@ public class SmitherConfig implements ConfigData {
     public boolean showHoldShiftInfo = true;
     @Comment("If non link chance is set via datapack, default 5% chance")
     public float defaultLinkChance = 0.05f;
+    @Comment("Always used for unlinking")
     public float defaultUnlinkChance = 0.2f;
     @Comment("20% default bonus")
     public float hammerExtraChance = 0.2f;
