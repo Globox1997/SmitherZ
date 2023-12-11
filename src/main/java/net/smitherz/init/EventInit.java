@@ -21,6 +21,10 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.ItemStack;
+import net.minecraft.loot.LootPool;
+import net.minecraft.loot.LootTables;
+import net.minecraft.loot.entry.ItemEntry;
+import net.minecraft.loot.provider.number.BinomialLootNumberProvider;
 import net.smitherz.data.GemLoader;
 import net.smitherz.item.Upgradeable;
 import net.smitherz.item.attribute.GemEntityAttributeModifier;
@@ -107,6 +111,25 @@ public class EventInit {
                 e.printStackTrace();
             }
         }
+
+        LootTableEvents.MODIFY.register((resourceManager, lootManager, id, supplier, setter) -> {
+
+            if (LootTables.END_CITY_TREASURE_CHEST.equals(id)) {
+                LootPool pool = LootPool.builder().with(ItemEntry.builder(ItemInit.EXTRACTION_HAMMER_4).build()).rolls(BinomialLootNumberProvider.create(1, 0.005F))
+                        .with(ItemEntry.builder(ItemInit.SMITHER_HAMMER_4).build()).rolls(BinomialLootNumberProvider.create(1, 0.005F)).build();
+                supplier.pool(pool);
+            } else if (LootTables.BURIED_TREASURE_CHEST.equals(id) || LootTables.SHIPWRECK_TREASURE_CHEST.equals(id)) {
+                LootPool pool = LootPool.builder().with(ItemEntry.builder(ItemInit.EXTRACTION_HAMMER_1).build()).rolls(BinomialLootNumberProvider.create(1, 0.1F))
+                        .with(ItemEntry.builder(ItemInit.EXTRACTION_HAMMER_2).build()).rolls(BinomialLootNumberProvider.create(1, 0.05F)).with(ItemEntry.builder(ItemInit.EXTRACTION_HAMMER_3).build())
+                        .rolls(BinomialLootNumberProvider.create(1, 0.01F)).build();
+                supplier.pool(pool);
+            } else if (LootTables.BASTION_TREASURE_CHEST.equals(id)) {
+                LootPool pool = LootPool.builder().with(ItemEntry.builder(ItemInit.SMITHER_HAMMER_1).build()).rolls(BinomialLootNumberProvider.create(1, 0.1F))
+                        .with(ItemEntry.builder(ItemInit.SMITHER_HAMMER_2).build()).rolls(BinomialLootNumberProvider.create(1, 0.05F)).with(ItemEntry.builder(ItemInit.SMITHER_HAMMER_3).build())
+                        .rolls(BinomialLootNumberProvider.create(1, 0.01F)).build();
+                supplier.pool(pool);
+            }
+        });
     }
 
     private static File extractFileFromZip(ZipFile zipFile, ZipEntry zipEntry) throws IOException {
