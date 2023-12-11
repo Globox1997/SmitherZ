@@ -29,8 +29,15 @@ public class ItemInit {
     // Lists
     public static final ArrayList<String> ITEM_IDS = new ArrayList<String>();
 
-    public static final Item SMITHER_HAMMER = register("smither_hammer", new Hammer(new Item.Settings().rarity(Rarity.UNCOMMON)));
-    public static final Item EXTRACTION_HAMMER = register("extraction_hammer", new Hammer(new Item.Settings().rarity(Rarity.UNCOMMON)));
+    public static final Item SMITHER_HAMMER_1 = register("smither_hammer_1", new Hammer(new Item.Settings().rarity(Rarity.UNCOMMON), 5f));
+    public static final Item SMITHER_HAMMER_2 = register("smither_hammer_2", new Hammer(new Item.Settings().rarity(Rarity.UNCOMMON), 10f));
+    public static final Item SMITHER_HAMMER_3 = register("smither_hammer_3", new Hammer(new Item.Settings().rarity(Rarity.UNCOMMON), 20f));
+    public static final Item SMITHER_HAMMER_4 = register("smither_hammer_4", new Hammer(new Item.Settings().rarity(Rarity.UNCOMMON), 50f));
+
+    public static final Item EXTRACTION_HAMMER_1 = register("extraction_hammer_1", new Hammer(new Item.Settings().rarity(Rarity.UNCOMMON), 5f));
+    public static final Item EXTRACTION_HAMMER_2 = register("extraction_hammer_2", new Hammer(new Item.Settings().rarity(Rarity.UNCOMMON), 10f));
+    public static final Item EXTRACTION_HAMMER_3 = register("extraction_hammer_3", new Hammer(new Item.Settings().rarity(Rarity.UNCOMMON), 20f));
+    public static final Item EXTRACTION_HAMMER_4 = register("extraction_hammer_4", new Hammer(new Item.Settings().rarity(Rarity.UNCOMMON), 50f));
 
     public static Item STRENGTH_I;
     public static Item STRENGTH_II;
@@ -162,7 +169,7 @@ public class ItemInit {
                     0.01f, 0.05f, 0.01f, ItemTags.TOOLS));
         }
         Registry.register(Registries.ITEM_GROUP, SMITHERZ_ITEM_GROUP,
-                FabricItemGroup.builder().icon(() -> new ItemStack(SMITHER_HAMMER)).displayName(Text.translatable("item.smitherz.item_group")).build());
+                FabricItemGroup.builder().icon(() -> new ItemStack(SMITHER_HAMMER_4)).displayName(Text.translatable("item.smitherz.item_group")).build());
     }
 
 }

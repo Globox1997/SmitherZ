@@ -12,8 +12,14 @@
     "text.autoconfig.smitherz.option.linkBreakChance": "Link Break Chance",
 
     "item.smitherz.item_group": "SmitherZ",
-    "item.smitherz.smither_hammer": "Smither Hammer",
-    "item.smitherz.extraction_hammer": "Extraction Hammer",
+    "item.smitherz.smither_hammer_1": "Smither Hammer",
+    "item.smitherz.smither_hammer_2": "Smither Hammer",
+    "item.smitherz.smither_hammer_3": "Smither Hammer",
+    "item.smitherz.smither_hammer_4": "Smither Hammer",
+    "item.smitherz.extraction_hammer_1": "Extraction Hammer",
+    "item.smitherz.extraction_hammer_2": "Extraction Hammer",
+    "item.smitherz.extraction_hammer_3": "Extraction Hammer",
+    "item.smitherz.extraction_hammer_4": "Extraction Hammer",
 
     "item.smitherz.strength_1_gem": "Strength I Gem",
     "item.smitherz.strength_2_gem": "Strength II Gem",
@@ -55,6 +61,9 @@
     "screen.smitherz.smither_screen": "Link Gear",
     "screen.smitherz.grinder_screen": "Unlink Gear",
 
-    "item.smitherz.link_bonus": "+%s Link Chance",
-    "item.smitherz.extraction_bonus": "+%s Extraction Chance"
+    "item.smitherz.link_bonus": "+%s%% Link Chance",
+    "item.smitherz.extraction_bonus": "+%s%% Extraction Chance",
+    "item.smitherz.gem.tooltip": "%s%% Link Chance",
+    "item.smitherz.gem.tooltip_2": "%s%% Link (+%s%% Break) Chance",
+    "item.smitherz.gem.tooltip_3": "%s%% Extraction Chance"
 }

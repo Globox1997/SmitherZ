@@ -21,7 +21,8 @@ public class ModelInit {
         while (items.hasNext()) {
             String item = items.next();
             if (item.contains("hammer")) {
-                ARRP_RESOURCE_PACK.addModel(JModel.model().parent("item/handheld").textures(JModel.textures().layer0("smitherz:item/" + item)), new Identifier("smitherz", "item/" + item));
+                ARRP_RESOURCE_PACK.addModel(JModel.model().parent("item/handheld").textures(JModel.textures().layer0("smitherz:item/" + item.substring(0, item.length() - 2))),
+                        new Identifier("smitherz", "item/" + item));
             } else {
                 ARRP_RESOURCE_PACK.addModel(JModel.model().parent("item/generated").textures(JModel.textures().layer0("smitherz:item/" + item)), new Identifier("smitherz", "item/" + item));
             }
