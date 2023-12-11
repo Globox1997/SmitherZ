@@ -1,9 +1,14 @@
 package net.smitherz.item;
 
+import java.util.List;
+
 import com.google.common.collect.Multimap;
 
 import org.jetbrains.annotations.Nullable;
 
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -11,6 +16,9 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
+import net.minecraft.world.World;
 
 public class Gem extends Item {
 
@@ -61,6 +69,20 @@ public class Gem extends Item {
             return entityAttributeModifiers;
         } else {
             return super.getAttributeModifiers(stack, slot);
+        }
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
+        super.appendTooltip(stack, world, tooltip, context);
+        if (InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 340)) {
+            if (getLinkBreakChance() < 0.00001f) {
+                tooltip.add(Text.translatable("item.smitherz.gem.tooltip", String.format("%.1f", getLinkChance() * 100f)).formatted(Formatting.GRAY));
+            } else {
+                tooltip.add(Text.translatable("item.smitherz.gem.tooltip_2", String.format("%.1f", getLinkChance() * 100f), String.format("%.1f", getLinkBreakChance() * 100f))
+                        .formatted(Formatting.GRAY));
+            }
+            tooltip.add(Text.translatable("item.smitherz.gem.tooltip_3", String.format("%.1f", getUnlinkChance() * 100f)).formatted(Formatting.GRAY));
         }
     }
 

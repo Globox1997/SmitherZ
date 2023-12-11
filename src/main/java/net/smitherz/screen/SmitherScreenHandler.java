@@ -7,7 +7,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
@@ -133,6 +136,9 @@ public class SmitherScreenHandler extends ScreenHandler implements ScreenHandler
             if (hasUpgradeable && hasUnlinkedGem()) {
                 disableButton = false;
             }
+            if (!disableButton && !canLinkSameGem()) {
+                disableButton = true;
+            }
             SmitherServerPacket.writeS2CSmitherReadyPacket((ServerPlayerEntity) this.player, disableButton);
         }
     }
@@ -162,6 +168,22 @@ public class SmitherScreenHandler extends ScreenHandler implements ScreenHandler
             }
         }
         return ItemStack.EMPTY;
+    }
+
+    public boolean canLinkSameGem() {
+        if (!ConfigInit.CONFIG.canLinkSameGem) {
+            if (this.getSlot(0).getStack().hasNbt() && this.getSlot(0).getStack().getNbt().contains(UpgradeHelper.GEMS_KEY)) {
+                NbtList nbtList = this.getSlot(0).getStack().getNbt().getList(UpgradeHelper.GEMS_KEY, NbtElement.COMPOUND_TYPE);
+                Item gem = getUnlickedGem().getItem();
+                for (int i = 0; i < nbtList.size(); i++) {
+                    if (ItemStack.fromNbt(nbtList.getCompound(i)).isOf(gem)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+
     }
 
     private boolean hasUnlinkedGem() {

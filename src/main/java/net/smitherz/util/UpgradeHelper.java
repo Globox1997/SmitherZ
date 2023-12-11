@@ -18,11 +18,12 @@ import net.smitherz.SmitherzMain;
 import net.smitherz.init.ConfigInit;
 import net.smitherz.init.TagInit;
 import net.smitherz.item.Gem;
+import net.smitherz.item.Hammer;
 import net.smitherz.item.Upgradeable;
 
 public class UpgradeHelper {
 
-    private static final String GEMS_KEY = "Gems";
+    public static final String GEMS_KEY = "Gems";
     public static final Random RANDOM = new Random();
 
     public static void spawnItemContents(ItemEntity itemEntity, Stream<ItemStack> contents) {
@@ -57,7 +58,7 @@ public class UpgradeHelper {
             }
             if (!ConfigInit.CONFIG.canLinkSameGem && upgradeable.hasNbt()) {
                 if (upgradeable.getNbt().contains(GEMS_KEY)) {
-                    NbtList nbtList = upgradeable.getNbt().getList(GEMS_KEY, 9);
+                    NbtList nbtList = upgradeable.getNbt().getList(GEMS_KEY, NbtElement.COMPOUND_TYPE);
                     for (int i = 0; i < nbtList.size(); i++) {
                         if (ItemStack.fromNbt(nbtList.getCompound(i)).isOf(gemStack.getItem())) {
                             return false;
@@ -71,7 +72,11 @@ public class UpgradeHelper {
         }
         boolean hasHammer = hammer != null && !hammer.isEmpty() && hammer.isIn(TagInit.BONUS_ITEMS);
         if (hasHammer) {
-            linkChance = linkChance * (1.0f + ConfigInit.CONFIG.hammerExtraChance);
+            if (hammer.getItem() instanceof Hammer hammerItem) {
+                linkChance = linkChance + hammerItem.getBonusChance();
+            } else {
+                linkChance = linkChance + ConfigInit.CONFIG.hammerExtraChance;
+            }
             hammer.decrement(1);
         }
 
@@ -106,9 +111,13 @@ public class UpgradeHelper {
         if (itemStack2.hasNbt() && itemStack2.getNbt().contains(GEMS_KEY)) {
 
             float unlinkChance = ConfigInit.CONFIG.defaultUnlinkChance;
-            boolean hasHammer = hammer != null && !hammer.isEmpty() && hammer.isIn(TagInit.BONUS_ITEMS);
+            boolean hasHammer = hammer != null && !hammer.isEmpty() && hammer.isIn(TagInit.EXTRACTION_ITEMS);
             if (hasHammer) {
-                unlinkChance = unlinkChance * (1.0f + ConfigInit.CONFIG.hammerExtraChance);
+                if (hammer.getItem() instanceof Hammer hammerItem) {
+                    unlinkChance += hammerItem.getBonusChance();
+                } else {
+                    unlinkChance += ConfigInit.CONFIG.hammerExtraChance;
+                }
             }
 
             if (hammer != null && !hammer.isEmpty()) {
@@ -118,7 +127,8 @@ public class UpgradeHelper {
 
                 ItemStack stack = ItemStack.fromNbt(nbtList.getCompound(nbtList.size() - 1));
                 if (stack.getItem() instanceof Gem gem) {
-                    if (RANDOM.nextFloat() <= (gem.getUnlinkChance() * (hasHammer ? (1.0f + ConfigInit.CONFIG.hammerExtraChance) : 1.0f))) {
+                    unlinkChance = gem.getUnlinkChance() + (hasHammer ? (hammer.getItem() instanceof Hammer hammerItem ? hammerItem.getBonusChance() : ConfigInit.CONFIG.hammerExtraChance) : 0.0f);
+                    if (RANDOM.nextFloat() <= unlinkChance) {
                         list.add(stack);
                     }
                 } else if (unlinkChance >= RANDOM.nextFloat()) {
@@ -134,7 +144,9 @@ public class UpgradeHelper {
                 for (int i = 0; i < nbtList.size(); i++) {
                     ItemStack stack = ItemStack.fromNbt(nbtList.getCompound(i));
                     if (stack.getItem() instanceof Gem gem) {
-                        if (RANDOM.nextFloat() <= (gem.getUnlinkChance() * (hasHammer ? (1.0f + ConfigInit.CONFIG.hammerExtraChance) : 1.0f))) {
+                        unlinkChance = gem.getUnlinkChance()
+                                + (hasHammer ? (hammer.getItem() instanceof Hammer hammerItem ? hammerItem.getBonusChance() : ConfigInit.CONFIG.hammerExtraChance) : 0.0f);
+                        if (RANDOM.nextFloat() <= unlinkChance) {
                             list.add(stack);
                         }
                     } else if (unlinkChance >= RANDOM.nextFloat()) {
