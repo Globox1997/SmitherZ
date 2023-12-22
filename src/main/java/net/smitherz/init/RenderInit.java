@@ -2,6 +2,7 @@ package net.smitherz.init;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
 import net.libz.registry.TabRegistry;
 import net.minecraft.client.gui.screen.ingame.GrindstoneScreen;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
@@ -13,6 +14,8 @@ import net.smitherz.screen.GrinderScreenHandler;
 import net.smitherz.screen.SmitherScreen;
 import net.smitherz.screen.SmitherScreenHandler;
 import net.smitherz.screen.widget.*;
+import net.smitherz.tooltip.SmitherTooltipComponent;
+import net.smitherz.tooltip.SmitherTooltipData;
 
 @Environment(EnvType.CLIENT)
 public class RenderInit {
@@ -32,5 +35,12 @@ public class RenderInit {
 
         TabRegistry.registerOtherTab(new GrindstoneTab(Text.translatable("container.grindstone_title"), GRINDSTONE_TAB_ICON, 0, GrindstoneScreen.class), GrindstoneScreen.class);
         TabRegistry.registerOtherTab(new GrinderTab(Text.translatable("container.unlink"), GRINDER_TAB_ICON, 1, GrinderScreen.class), GrindstoneScreen.class);
+
+        TooltipComponentCallback.EVENT.register(data -> {
+            if (data instanceof SmitherTooltipData) {
+                return new SmitherTooltipComponent((SmitherTooltipData) data);
+            }
+            return null;
+        });
     }
 }

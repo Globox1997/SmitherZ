@@ -14,7 +14,6 @@ import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
 import net.fabricmc.fabric.api.item.v1.ModifyItemAttributeModifiersCallback;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.loader.api.FabricLoader;
@@ -28,20 +27,11 @@ import net.minecraft.loot.provider.number.BinomialLootNumberProvider;
 import net.smitherz.data.GemLoader;
 import net.smitherz.item.Upgradeable;
 import net.smitherz.item.attribute.GemEntityAttributeModifier;
-import net.smitherz.tooltip.SmitherTooltipComponent;
-import net.smitherz.tooltip.SmitherTooltipData;
 import net.smitherz.util.UpgradeHelper;
 
 public class EventInit {
 
     public static void init() {
-
-        LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
-        });
-
-        TooltipComponentCallback.EVENT.register(data -> {
-            return new SmitherTooltipComponent((SmitherTooltipData) data);
-        });
 
         ModifyItemAttributeModifiersCallback.EVENT.register((itemStack, slot, modifiers) -> {
             if (itemStack.getNbt() != null && itemStack.getItem() instanceof Upgradeable) {
