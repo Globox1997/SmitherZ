@@ -1,6 +1,6 @@
 ### Added:
 - 
 ### Fixed:
-- Fixed server crash
+- Fixed tag loading
 ### Changed:
 - 
