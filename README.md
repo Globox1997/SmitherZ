@@ -29,7 +29,8 @@ Example for a new gem json:
                     "amount": 2
                 }
             }
-        ]
+        ],
+        "tag": "minecraft:swords"
     }
 }
 ```
