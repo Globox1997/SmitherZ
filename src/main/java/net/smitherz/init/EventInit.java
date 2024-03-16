@@ -40,8 +40,7 @@ public class EventInit {
 
                 while (itemStackIterator.hasNext()) {
                     ItemStack stack = itemStackIterator.next();
-
-                    Iterator<Map.Entry<EntityAttribute, EntityAttributeModifier>> mapEntryAttributeModifierIterator = stack.getAttributeModifiers(slot).entries().iterator();
+                    Iterator<Map.Entry<EntityAttribute, EntityAttributeModifier>> mapEntryAttributeModifierIterator = stack.getItem().getAttributeModifiers(itemStack, slot).entries().iterator();
                     while (mapEntryAttributeModifierIterator.hasNext()) {
                         Map.Entry<EntityAttribute, EntityAttributeModifier> entry = mapEntryAttributeModifierIterator.next();
 

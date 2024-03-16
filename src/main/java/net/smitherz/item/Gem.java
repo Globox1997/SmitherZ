@@ -2,6 +2,7 @@ package net.smitherz.item;
 
 import java.util.List;
 
+import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 
 import org.jetbrains.annotations.Nullable;
@@ -66,7 +67,9 @@ public class Gem extends Item {
     @Override
     public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(ItemStack stack, EquipmentSlot slot) {
         if (slot.equals(LivingEntity.getPreferredEquipmentSlot(stack))) {
-            return entityAttributeModifiers;
+            return this.entityAttributeModifiers;
+        } else if (slot.equals(EquipmentSlot.MAINHAND)) {
+            return ImmutableMultimap.of();
         } else {
             return super.getAttributeModifiers(stack, slot);
         }

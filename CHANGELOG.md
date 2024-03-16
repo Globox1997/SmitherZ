@@ -1,6 +1,6 @@
 ### Added:
 - 
 ### Fixed:
-- Fixed tag loading
+- Fixed gem attribute mechanic
 ### Changed:
 - 
