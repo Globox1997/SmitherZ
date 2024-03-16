@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableMultimap;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.attribute.EntityAttributeModifier.Operation;
 import net.minecraft.item.Item;
@@ -15,7 +16,6 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
@@ -83,21 +83,31 @@ public class ItemInit {
 
     public static void init() {
         if (ConfigInit.CONFIG.defaultGems) {
-            STRENGTH_I = register("strength_1_gem", new Gem(new Item.Settings(),
-                    ImmutableMultimap.of(EntityAttributes.GENERIC_ATTACK_DAMAGE, new GemEntityAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE.getTranslationKey(), 2, Operation.ADDITION)),
-                    0.45f, 0.0f, 0.5f, ItemTags.SWORDS));
-            STRENGTH_II = register("strength_2_gem", new Gem(new Item.Settings(),
-                    ImmutableMultimap.of(EntityAttributes.GENERIC_ATTACK_DAMAGE, new GemEntityAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE.getTranslationKey(), 4, Operation.ADDITION)),
-                    0.33f, 0.0f, 0.3f, ItemTags.SWORDS));
-            STRENGTH_III = register("strength_3_gem", new Gem(new Item.Settings(),
-                    ImmutableMultimap.of(EntityAttributes.GENERIC_ATTACK_DAMAGE, new GemEntityAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE.getTranslationKey(), 6, Operation.ADDITION)),
-                    0.25f, 0.0f, 0.2f, ItemTags.SWORDS));
-            STRENGTH_IV = register("strength_4_gem", new Gem(new Item.Settings(),
-                    ImmutableMultimap.of(EntityAttributes.GENERIC_ATTACK_DAMAGE, new GemEntityAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE.getTranslationKey(), 8, Operation.ADDITION)),
-                    0.09f, 0.01f, 0.05f, ItemTags.SWORDS));
-            STRENGTH_V = register("strength_5_gem", new Gem(new Item.Settings(),
-                    ImmutableMultimap.of(EntityAttributes.GENERIC_ATTACK_DAMAGE, new GemEntityAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE.getTranslationKey(), 12, Operation.ADDITION)),
-                    0.01f, 0.05f, 0.01f, ItemTags.SWORDS));
+            STRENGTH_I = register("strength_1_gem",
+                    new Gem(new Item.Settings(),
+                            ImmutableMultimap.of(EntityAttributes.GENERIC_ATTACK_DAMAGE,
+                                    new GemEntityAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE.getTranslationKey(), 2, Operation.ADDITION)),
+                            0.45f, 0.0f, 0.5f, ConventionalItemTags.SWORDS));
+            STRENGTH_II = register("strength_2_gem",
+                    new Gem(new Item.Settings(),
+                            ImmutableMultimap.of(EntityAttributes.GENERIC_ATTACK_DAMAGE,
+                                    new GemEntityAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE.getTranslationKey(), 4, Operation.ADDITION)),
+                            0.33f, 0.0f, 0.3f, ConventionalItemTags.SWORDS));
+            STRENGTH_III = register("strength_3_gem",
+                    new Gem(new Item.Settings(),
+                            ImmutableMultimap.of(EntityAttributes.GENERIC_ATTACK_DAMAGE,
+                                    new GemEntityAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE.getTranslationKey(), 6, Operation.ADDITION)),
+                            0.25f, 0.0f, 0.2f, ConventionalItemTags.SWORDS));
+            STRENGTH_IV = register("strength_4_gem",
+                    new Gem(new Item.Settings(),
+                            ImmutableMultimap.of(EntityAttributes.GENERIC_ATTACK_DAMAGE,
+                                    new GemEntityAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE.getTranslationKey(), 8, Operation.ADDITION)),
+                            0.09f, 0.01f, 0.05f, ConventionalItemTags.SWORDS));
+            STRENGTH_V = register("strength_5_gem",
+                    new Gem(new Item.Settings(),
+                            ImmutableMultimap.of(EntityAttributes.GENERIC_ATTACK_DAMAGE,
+                                    new GemEntityAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE.getTranslationKey(), 12, Operation.ADDITION)),
+                            0.01f, 0.05f, 0.01f, ConventionalItemTags.SWORDS));
 
             DEFENSE_I = register("defense_1_gem",
                     new Gem(new Item.Settings(),
@@ -154,19 +164,19 @@ public class ItemInit {
 
             ATTACK_SPEED_I = register("attack_speed_1_gem", new Gem(new Item.Settings(),
                     ImmutableMultimap.of(EntityAttributes.GENERIC_ATTACK_SPEED, new GemEntityAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED.getTranslationKey(), 0.05D, Operation.ADDITION)),
-                    0.45f, 0.0f, 0.5f, ItemTags.TOOLS));
+                    0.45f, 0.0f, 0.5f, TagInit.TOOLS));
             ATTACK_SPEED_II = register("attack_speed_2_gem", new Gem(new Item.Settings(),
                     ImmutableMultimap.of(EntityAttributes.GENERIC_ATTACK_SPEED, new GemEntityAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED.getTranslationKey(), 0.1D, Operation.ADDITION)),
-                    0.33f, 0.0f, 0.3f, ItemTags.TOOLS));
+                    0.33f, 0.0f, 0.3f, TagInit.TOOLS));
             ATTACK_SPEED_III = register("attack_speed_3_gem", new Gem(new Item.Settings(),
                     ImmutableMultimap.of(EntityAttributes.GENERIC_ATTACK_SPEED, new GemEntityAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED.getTranslationKey(), 0.15D, Operation.ADDITION)),
-                    0.25f, 0.0f, 0.2f, ItemTags.TOOLS));
+                    0.25f, 0.0f, 0.2f, TagInit.TOOLS));
             ATTACK_SPEED_IV = register("attack_speed_4_gem", new Gem(new Item.Settings(),
                     ImmutableMultimap.of(EntityAttributes.GENERIC_ATTACK_SPEED, new GemEntityAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED.getTranslationKey(), 0.2D, Operation.ADDITION)),
-                    0.09f, 0.01f, 0.05f, ItemTags.TOOLS));
+                    0.09f, 0.01f, 0.05f, TagInit.TOOLS));
             ATTACK_SPEED_V = register("attack_speed_5_gem", new Gem(new Item.Settings(),
                     ImmutableMultimap.of(EntityAttributes.GENERIC_ATTACK_SPEED, new GemEntityAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED.getTranslationKey(), 0.3D, Operation.ADDITION)),
-                    0.01f, 0.05f, 0.01f, ItemTags.TOOLS));
+                    0.01f, 0.05f, 0.01f, TagInit.TOOLS));
         }
         Registry.register(Registries.ITEM_GROUP, SMITHERZ_ITEM_GROUP,
                 FabricItemGroup.builder().icon(() -> new ItemStack(SMITHER_HAMMER_4)).displayName(Text.translatable("item.smitherz.item_group")).build());
