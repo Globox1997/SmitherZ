@@ -1,6 +1,6 @@
 ### Added:
 - 
 ### Fixed:
-- Fixed gem attribute mechanic
+- Fixed gem tooltip
 ### Changed:
 - 

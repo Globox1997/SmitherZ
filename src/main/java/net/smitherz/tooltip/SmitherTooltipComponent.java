@@ -25,6 +25,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.smitherz.init.ConfigInit;
+import net.smitherz.item.Gem;
 
 @Environment(EnvType.CLIENT)
 public class SmitherTooltipComponent implements TooltipComponent {
@@ -96,8 +97,17 @@ public class SmitherTooltipComponent implements TooltipComponent {
         Map<EntityAttribute, List<Object>> map = new HashMap<EntityAttribute, List<Object>>();
         for (int i = 0; i < this.inventory.size(); i++) {
             if (!this.inventory.get(i).isEmpty()) {
-
                 Multimap<EntityAttribute, EntityAttributeModifier> multimap = this.inventory.get(i).getAttributeModifiers(EquipmentSlot.MAINHAND);
+                if (this.inventory.get(i).getItem() instanceof Gem gem) {
+                    multimap = gem.getGemAttributeModifiers();
+                } else if (multimap.isEmpty()) {
+                    for (EquipmentSlot equipmentSlot : EquipmentSlot.values()) {
+                        multimap = this.inventory.get(i).getAttributeModifiers(equipmentSlot);
+                        if (multimap.isEmpty()) {
+                            continue;
+                        }
+                    }
+                }
                 if (multimap.isEmpty()) {
                     continue;
                 }

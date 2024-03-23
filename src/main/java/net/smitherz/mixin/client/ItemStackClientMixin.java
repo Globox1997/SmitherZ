@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
@@ -37,10 +38,14 @@ import net.smitherz.item.attribute.GemEntityAttributeModifier;
 public class ItemStackClientMixin {
 
     private boolean isGem = false;
+    private boolean equipmentSlotCheck = false;
 
     @Inject(method = "getTooltip", at = @At("HEAD"))
     private void getTooltipMixin(@Nullable PlayerEntity player, TooltipContext context, CallbackInfoReturnable<List<Text>> info) {
         this.isGem = getItem() instanceof Gem || ((ItemStack) (Object) this).isIn(TagInit.GEMS);
+        if (this.isGem) {
+            this.equipmentSlotCheck = true;
+        }
     }
 
     @ModifyExpressionValue(method = "getTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/text/Text;translatable(Ljava/lang/String;)Lnet/minecraft/text/MutableText;", ordinal = 1))
@@ -51,10 +56,19 @@ public class ItemStackClientMixin {
         return original;
     }
 
+    @ModifyVariable(method = "getTooltip", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/item/ItemStack;getAttributeModifiers(Lnet/minecraft/entity/EquipmentSlot;)Lcom/google/common/collect/Multimap;"), ordinal = 0)
+    private Multimap<EntityAttribute, EntityAttributeModifier> getTooltipMixin(Multimap<EntityAttribute, EntityAttributeModifier> original) {
+        if (this.isGem && this.equipmentSlotCheck && getItem() instanceof Gem gem) {
+            this.equipmentSlotCheck = false;
+            return gem.getGemAttributeModifiers();
+        }
+        return original;
+    }
+
     @Inject(method = "getTooltip", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/item/ItemStack;getAttributeModifiers(Lnet/minecraft/entity/EquipmentSlot;)Lcom/google/common/collect/Multimap;"), locals = LocalCapture.CAPTURE_FAILSOFT)
     private void getTooltipMixin(@Nullable PlayerEntity player, TooltipContext context, CallbackInfoReturnable<List<Text>> info, List list, MutableText mutableText, int i, EquipmentSlot var6[],
             int var7, int var8, EquipmentSlot equipmentSlot, Multimap<EntityAttribute, EntityAttributeModifier> multimap) {
-        if (!multimap.isEmpty() && !this.isGem) {
+        if (!this.isGem && !multimap.isEmpty()) {
             Iterator<Entry<EntityAttribute, EntityAttributeModifier>> iterator = multimap.entries().iterator();
             while (iterator.hasNext()) {
                 Entry<EntityAttribute, EntityAttributeModifier> entry = iterator.next();

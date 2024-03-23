@@ -52,11 +52,6 @@ public class Gem extends Item {
         return this.unlinkChance;
     }
 
-    // @Override
-    // public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
-    // return super.getAttributeModifiers(slot);
-    // }
-
     public boolean canLinkToItemStack(ItemStack stack) {
         if (this.restrictionTag != null && !stack.isIn(this.restrictionTag)) {
             return false;
@@ -64,9 +59,13 @@ public class Gem extends Item {
         return true;
     }
 
+    public Multimap<EntityAttribute, EntityAttributeModifier> getGemAttributeModifiers() {
+        return this.entityAttributeModifiers;
+    }
+
     @Override
     public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(ItemStack stack, EquipmentSlot slot) {
-        if (slot.equals(LivingEntity.getPreferredEquipmentSlot(stack))) {
+        if (!stack.isOf(this) && slot.equals(LivingEntity.getPreferredEquipmentSlot(stack))) {
             return this.entityAttributeModifiers;
         } else if (slot.equals(EquipmentSlot.MAINHAND)) {
             return ImmutableMultimap.of();
