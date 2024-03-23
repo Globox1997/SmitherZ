@@ -12,6 +12,7 @@ public class TagInit {
     public static final TagKey<Item> BONUS_ITEMS = TagKey.of(RegistryKeys.ITEM, new Identifier("smitherz", "bonus_items"));
     public static final TagKey<Item> EXTRACTION_ITEMS = TagKey.of(RegistryKeys.ITEM, new Identifier("smitherz", "extraction_items"));
     // autotag
+    public static final TagKey<Item> SWORDS = TagKey.of(RegistryKeys.ITEM, TagIdentifiers.Items.SWORDS);
     public static final TagKey<Item> ARMOR = TagKey.of(RegistryKeys.ITEM, TagIdentifiers.Items.ARMOR);
     public static final TagKey<Item> TOOLS = TagKey.of(RegistryKeys.ITEM, TagIdentifiers.Items.TOOLS);
 
