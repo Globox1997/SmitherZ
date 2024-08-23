@@ -9,8 +9,6 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtList;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
@@ -21,6 +19,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldEvents;
 import net.smitherz.init.ConfigInit;
+import net.smitherz.init.ItemInit;
 import net.smitherz.init.ScreenInit;
 import net.smitherz.init.TagInit;
 import net.smitherz.item.Gem;
@@ -172,11 +171,10 @@ public class SmitherScreenHandler extends ScreenHandler implements ScreenHandler
 
     public boolean canLinkSameGem() {
         if (!ConfigInit.CONFIG.canLinkSameGem) {
-            if (this.getSlot(0).getStack().hasNbt() && this.getSlot(0).getStack().getNbt().contains(UpgradeHelper.GEMS_KEY)) {
-                NbtList nbtList = this.getSlot(0).getStack().getNbt().getList(UpgradeHelper.GEMS_KEY, NbtElement.COMPOUND_TYPE);
+            if (this.getSlot(0).getStack().get(ItemInit.GEMS) != null) {
                 Item gem = getUnlickedGem().getItem();
-                for (int i = 0; i < nbtList.size(); i++) {
-                    if (ItemStack.fromNbt(nbtList.getCompound(i)).isOf(gem)) {
+                for (int i = 0; i < this.getSlot(0).getStack().get(ItemInit.GEMS).gems().size(); i++) {
+                    if (this.getSlot(0).getStack().get(ItemInit.GEMS).gems().get(i).isOf(gem)) {
                         return false;
                     }
                 }

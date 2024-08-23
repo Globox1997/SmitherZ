@@ -2,12 +2,11 @@ package net.smitherz.item;
 
 import java.util.List;
 
-import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.world.World;
 import net.smitherz.init.TagInit;
 
 public class Hammer extends Item {
@@ -24,13 +23,13 @@ public class Hammer extends Item {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
-        super.appendTooltip(stack, world, tooltip, context);
+    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         if (stack.isIn(TagInit.BONUS_ITEMS)) {
             tooltip.add(Text.translatable("item.smitherz.link_bonus", chance).formatted(Formatting.BLUE));
         } else if (stack.isIn(TagInit.EXTRACTION_ITEMS)) {
             tooltip.add(Text.translatable("item.smitherz.extraction_bonus", chance).formatted(Formatting.BLUE));
         }
+        super.appendTooltip(stack, context, tooltip, type);
     }
 
 }

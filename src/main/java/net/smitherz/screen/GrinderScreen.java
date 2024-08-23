@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 @Environment(EnvType.CLIENT)
 public class GrinderScreen extends HandledScreen<GrinderScreenHandler> implements Tab {
 
-    public static final Identifier TEXTURE = new Identifier("smitherz", "textures/gui/grinder_screen.png");
+    public static final Identifier TEXTURE = Identifier.of("smitherz", "textures/gui/grinder_screen.png");
 
     public GrinderScreen(GrinderScreenHandler handler, PlayerInventory playerInventory, Text title) {
         super(handler, playerInventory, title);
@@ -21,9 +21,8 @@ public class GrinderScreen extends HandledScreen<GrinderScreenHandler> implement
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        this.renderBackground(context);
-        this.drawBackground(context, delta, mouseX, mouseY);
         super.render(context, mouseX, mouseY, delta);
+        this.drawBackground(context, delta, mouseX, mouseY);
         this.drawMouseoverTooltip(context, mouseX, mouseY);
     }
 
@@ -32,8 +31,8 @@ public class GrinderScreen extends HandledScreen<GrinderScreenHandler> implement
         int i = (this.width - this.backgroundWidth) / 2;
         int j = (this.height - this.backgroundHeight) / 2;
         context.drawTexture(TEXTURE, i, j, 0, 0, this.backgroundWidth, this.backgroundHeight);
-        if ((((GrinderScreenHandler) this.handler).getSlot(0).hasStack() || ((GrinderScreenHandler) this.handler).getSlot(1).hasStack())
-                && !((GrinderScreenHandler) this.handler).getSlot(2).hasStack()) {
+        if ((this.handler.getSlot(0).hasStack() || this.handler.getSlot(1).hasStack())
+                && !this.handler.getSlot(2).hasStack()) {
             context.drawTexture(TEXTURE, i + 92, j + 31, this.backgroundWidth, 0, 28, 21);
         }
     }

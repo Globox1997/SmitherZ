@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +31,7 @@ public class UpgradeLoader implements SimpleSynchronousResourceReloadListener {
 
     @Override
     public Identifier getFabricId() {
-        return new Identifier("smitherz", "upgrade_loader");
+        return Identifier.of("smitherz", "upgrade_loader");
     }
 
     @Override
@@ -64,52 +63,49 @@ public class UpgradeLoader implements SimpleSynchronousResourceReloadListener {
                     InputStream stream = resourceRef.getInputStream();
                     JsonObject data = JsonParser.parseReader(new InputStreamReader(stream)).getAsJsonObject();
 
-                    Iterator<String> keyIterator = data.keySet().iterator();
-                    while (keyIterator.hasNext()) {
-                        JsonObject jsonObject = data.get(keyIterator.next()).getAsJsonObject();
+                    for (String s : data.keySet()) {
+                        JsonObject jsonObject = data.get(s).getAsJsonObject();
                         List<EntityType<?>> entityTypes = new ArrayList<EntityType<?>>();
 
-                        Iterator<JsonElement> mobTypeIterator = jsonObject.getAsJsonArray("mob_types").iterator();
-                        while (mobTypeIterator.hasNext()) {
-                            String mobType = mobTypeIterator.next().getAsString();
-                            if (Registries.ENTITY_TYPE.get(new Identifier(mobType)).toString().equals("entity.minecraft.pig")) {
+                        for (JsonElement element : jsonObject.getAsJsonArray("mob_types")) {
+                            String mobType = element.getAsString();
+                            if (Registries.ENTITY_TYPE.get(Identifier.of(mobType)).toString().equals("entity.minecraft.pig")) {
                                 LOGGER.info("Resource {} was not loaded cause {} is not a valid entity identifier", id.toString(), mobType);
                                 return;
                             }
-                            entityTypes.add(Registries.ENTITY_TYPE.get(new Identifier(mobType)));
+                            entityTypes.add(Registries.ENTITY_TYPE.get(Identifier.of(mobType)));
                         }
 
-                        for (int i = 0; i < entityTypes.size(); i++) {
+                        for (EntityType<?> entityType : entityTypes) {
                             int rarityGroup = jsonObject.get("rarity_group").getAsInt();
                             float difficultyMultiplier = jsonObject.has("difficulty_multiplier") ? jsonObject.get("difficulty_multiplier").getAsFloat() : 0.0f;
                             Map<Item, Float> itemChanceMap = new HashMap<>();
                             float chance = jsonObject.get("drop_chance").getAsFloat();
-                            Iterator<JsonElement> itemIterator = jsonObject.getAsJsonArray("items").iterator();
-                            while (itemIterator.hasNext()) {
-                                String item = itemIterator.next().getAsString();
-                                if (Registries.ITEM.get(new Identifier(item)).toString().equals("air")) {
+                            for (JsonElement jsonElement : jsonObject.getAsJsonArray("items")) {
+                                String item = jsonElement.getAsString();
+                                if (Registries.ITEM.get(Identifier.of(item)).toString().equals("air")) {
                                     LOGGER.info("{} is not a valid item identifier", item);
                                     continue;
                                 }
-                                itemChanceMap.put(Registries.ITEM.get(new Identifier(item)), chance);
+                                itemChanceMap.put(Registries.ITEM.get(Identifier.of(item)), chance);
                             }
 
-                            if (SmitherzMain.gemDropMap.containsKey(entityTypes.get(i))) {
-                                if (SmitherzMain.gemDropMap.get(entityTypes.get(i)).containsKey(rarityGroup)) {
-                                    SmitherzMain.gemDropMap.get(entityTypes.get(i)).get(rarityGroup).putAll(itemChanceMap);
-                                    SmitherzMain.gemRpgDropMap.get(entityTypes.get(i)).get(difficultyMultiplier).putAll(itemChanceMap);
+                            if (SmitherzMain.gemDropMap.containsKey(entityType)) {
+                                if (SmitherzMain.gemDropMap.get(entityType).containsKey(rarityGroup)) {
+                                    SmitherzMain.gemDropMap.get(entityType).get(rarityGroup).putAll(itemChanceMap);
+                                    SmitherzMain.gemRpgDropMap.get(entityType).get(difficultyMultiplier).putAll(itemChanceMap);
                                 } else {
-                                    SmitherzMain.gemDropMap.get(entityTypes.get(i)).put(rarityGroup, itemChanceMap);
-                                    SmitherzMain.gemRpgDropMap.get(entityTypes.get(i)).put(difficultyMultiplier, itemChanceMap);
+                                    SmitherzMain.gemDropMap.get(entityType).put(rarityGroup, itemChanceMap);
+                                    SmitherzMain.gemRpgDropMap.get(entityType).put(difficultyMultiplier, itemChanceMap);
                                 }
                             } else {
                                 LinkedHashMap<Integer, Map<Item, Float>> gemDrops = new LinkedHashMap<Integer, Map<Item, Float>>();
                                 gemDrops.put(rarityGroup, itemChanceMap);
-                                SmitherzMain.gemDropMap.put(entityTypes.get(i), gemDrops);
+                                SmitherzMain.gemDropMap.put(entityType, gemDrops);
 
                                 LinkedHashMap<Float, Map<Item, Float>> gemRpgDrops = new LinkedHashMap<Float, Map<Item, Float>>();
                                 gemRpgDrops.put(difficultyMultiplier, itemChanceMap);
-                                SmitherzMain.gemRpgDropMap.put(entityTypes.get(i), gemRpgDrops);
+                                SmitherzMain.gemRpgDropMap.put(entityType, gemRpgDrops);
                             }
                         }
                     }

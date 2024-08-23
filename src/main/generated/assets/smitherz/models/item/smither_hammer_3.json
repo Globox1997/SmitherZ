@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "smitherz:item/smither_hammer_3"
+  }
+}

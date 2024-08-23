@@ -18,7 +18,7 @@ public class SmithingScreenHandlerMixin implements ScreenHandlerAccess {
     @Unique
     private BlockPos pos;
 
-    @Inject(method = "Lnet/minecraft/screen/SmithingScreenHandler;<init>(ILnet/minecraft/entity/player/PlayerInventory;Lnet/minecraft/screen/ScreenHandlerContext;)V", at = @At("TAIL"))
+    @Inject(method = "<init>(ILnet/minecraft/entity/player/PlayerInventory;Lnet/minecraft/screen/ScreenHandlerContext;)V", at = @At("TAIL"))
     private void initMixin(int syncId, PlayerInventory inventory, ScreenHandlerContext context, CallbackInfo info) {
         context.run((world, pos) -> {
             SmithingScreenHandlerMixin.this.setPos(pos);

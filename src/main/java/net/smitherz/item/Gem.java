@@ -1,17 +1,16 @@
 package net.smitherz.item;
 
 import java.util.List;
+import java.util.Map;
 
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
-
+import net.minecraft.component.type.AttributeModifierSlot;
+import net.minecraft.component.type.AttributeModifiersComponent;
+import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.registry.entry.RegistryEntry;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.Item;
@@ -19,19 +18,18 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.world.World;
 
 public class Gem extends Item {
 
-    private final Multimap<EntityAttribute, EntityAttributeModifier> entityAttributeModifiers;
+    private final Map<RegistryEntry<EntityAttribute>, EntityAttributeModifier> entityAttributeModifiers;
     private final float linkChance;
     private final float linkBreakChance;
     private final float unlinkChance;
     @Nullable
     private final TagKey<Item> restrictionTag;
 
-    public Gem(Settings settings, Multimap<EntityAttribute, EntityAttributeModifier> entityAttributeModifiers, float linkChance, float linkBreakChance, float unlinkChance,
-            @Nullable TagKey<Item> restrictionTag) {
+    public Gem(Settings settings, Map<RegistryEntry<EntityAttribute>, EntityAttributeModifier> entityAttributeModifiers, float linkChance, float linkBreakChance, float unlinkChance,
+               @Nullable TagKey<Item> restrictionTag) {
         super(settings);
         this.entityAttributeModifiers = entityAttributeModifiers;
         this.linkChance = linkChance;
@@ -59,24 +57,33 @@ public class Gem extends Item {
         return true;
     }
 
-    public Multimap<EntityAttribute, EntityAttributeModifier> getGemAttributeModifiers() {
-        return this.entityAttributeModifiers;
+    //    @Override
+//    public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(ItemStack stack, EquipmentSlot slot) {
+//        if (!stack.isOf(this) && slot.equals(LivingEntity.getPreferredEquipmentSlot(stack))) {
+//            return this.entityAttributeModifiers;
+//        } else if (slot.equals(EquipmentSlot.MAINHAND)) {
+//            return ImmutableMultimap.of();
+//        } else {
+//            return super.getAttributeModifiers(stack, slot);
+//        }
+//    }
+//
+    public Map<RegistryEntry<EntityAttribute>, EntityAttributeModifier> getEntityAttributeModifiers() {
+        return entityAttributeModifiers;
     }
 
+
     @Override
-    public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(ItemStack stack, EquipmentSlot slot) {
-        if (!stack.isOf(this) && slot.equals(LivingEntity.getPreferredEquipmentSlot(stack))) {
-            return this.entityAttributeModifiers;
-        } else if (slot.equals(EquipmentSlot.MAINHAND)) {
-            return ImmutableMultimap.of();
-        } else {
-            return super.getAttributeModifiers(stack, slot);
+    public AttributeModifiersComponent getAttributeModifiers() {
+        AttributeModifiersComponent.Builder attributeModifiersComponentBuilder = AttributeModifiersComponent.builder();
+        for (Map.Entry<RegistryEntry<EntityAttribute>, EntityAttributeModifier> entry : this.entityAttributeModifiers.entrySet()) {
+            attributeModifiersComponentBuilder.add(entry.getKey(), entry.getValue(), AttributeModifierSlot.MAINHAND);
         }
+        return attributeModifiersComponentBuilder.build();
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
-        super.appendTooltip(stack, world, tooltip, context);
+    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         if (InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 340)) {
             if (getLinkBreakChance() < 0.00001f) {
                 tooltip.add(Text.translatable("item.smitherz.gem.tooltip", String.format("%.1f", getLinkChance() * 100f)).formatted(Formatting.GRAY));
@@ -86,6 +93,7 @@ public class Gem extends Item {
             }
             tooltip.add(Text.translatable("item.smitherz.gem.tooltip_3", String.format("%.1f", getUnlinkChance() * 100f)).formatted(Formatting.GRAY));
         }
+        super.appendTooltip(stack, context, tooltip, type);
     }
 
 }

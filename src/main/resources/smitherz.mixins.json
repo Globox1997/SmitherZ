@@ -2,13 +2,15 @@
 	"required": true,
 	"package": "net.smitherz.mixin",
 	"compatibilityLevel": "JAVA_17",
+	"plugin": "net.smitherz.mixin.SmitherMixinPlugin",
 	"mixins": [
 		"ItemMixin",
 		"ToolItemMixin",
 		"ArmorItemMixin",
 		"SmithingScreenHandlerMixin",
 		"GrindstoneScreenHandlerMixin",
-		"LivingEntityMixin"
+		"LivingEntityMixin",
+		"ItemStackMixin"
 	],
 	"client": [
 		"client.SmithingScreenMixin",

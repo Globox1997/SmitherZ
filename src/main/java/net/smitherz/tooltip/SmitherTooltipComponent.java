@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Multimap;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -15,22 +14,22 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.tooltip.TooltipComponent;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.smitherz.init.ConfigInit;
-import net.smitherz.item.Gem;
 
 @Environment(EnvType.CLIENT)
 public class SmitherTooltipComponent implements TooltipComponent {
 
-    public static final Identifier TEXTURE = new Identifier("smitherz:textures/gui/gem_slots.png");
+    public static final Identifier TEXTURE = Identifier.of("smitherz:textures/gui/gem_slots.png");
     private final DefaultedList<ItemStack> inventory;
     private final int gemSlotSize;
 
@@ -54,9 +53,9 @@ public class SmitherTooltipComponent implements TooltipComponent {
         if (InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 340)) {
             int minTextWidth = 0;
             List<Text> list = getTooltipText();
-            for (int i = 0; i < list.size(); i++) {
-                if (minTextWidth < textRenderer.getWidth(list.get(i)) + 12) {
-                    minTextWidth = textRenderer.getWidth(list.get(i)) + 12;
+            for (Text text : list) {
+                if (minTextWidth < textRenderer.getWidth(text) + 12) {
+                    minTextWidth = textRenderer.getWidth(text) + 12;
                 }
             }
             return Math.max(this.gemSlotSize * 18, minTextWidth);
@@ -78,8 +77,8 @@ public class SmitherTooltipComponent implements TooltipComponent {
             List<Text> list = getTooltipText();
             if (!list.isEmpty()) {
                 int o = 33;
-                for (int i = 0; i < list.size(); i++) {
-                    context.drawText(textRenderer, list.get(i), x + 12, y + o, 0, true);
+                for (Text text : list) {
+                    context.drawText(textRenderer, text, x + 12, y + o, 0, true);
                     o += 9;
                 }
             }
@@ -94,49 +93,39 @@ public class SmitherTooltipComponent implements TooltipComponent {
 
     private List<Text> getTooltipText() {
         ArrayList<Text> list = Lists.newArrayList();
-        Map<EntityAttribute, List<Object>> map = new HashMap<EntityAttribute, List<Object>>();
-        for (int i = 0; i < this.inventory.size(); i++) {
-            if (!this.inventory.get(i).isEmpty()) {
-                Multimap<EntityAttribute, EntityAttributeModifier> multimap = this.inventory.get(i).getAttributeModifiers(EquipmentSlot.MAINHAND);
-                if (this.inventory.get(i).getItem() instanceof Gem gem) {
-                    multimap = gem.getGemAttributeModifiers();
-                } else if (multimap.isEmpty()) {
-                    for (EquipmentSlot equipmentSlot : EquipmentSlot.values()) {
-                        multimap = this.inventory.get(i).getAttributeModifiers(equipmentSlot);
-                        if (multimap.isEmpty()) {
-                            continue;
-                        }
-                    }
-                }
-                if (multimap.isEmpty()) {
+        Map<RegistryEntry<EntityAttribute>, List<Object>> map = new HashMap<>();
+        for (ItemStack itemStack : this.inventory) {
+            if (!itemStack.isEmpty()) {
+                List<AttributeModifiersComponent.Entry> entries = itemStack.getItem().getAttributeModifiers().modifiers();
+                if (entries.isEmpty()) {
                     continue;
                 }
-                for (Map.Entry<EntityAttribute, EntityAttributeModifier> entry : multimap.entries()) {
-                    EntityAttributeModifier entityAttributeModifier = entry.getValue();
-                    double d = entityAttributeModifier.getValue();
-                    double e = entityAttributeModifier.getOperation() == EntityAttributeModifier.Operation.MULTIPLY_BASE
-                            || entityAttributeModifier.getOperation() == EntityAttributeModifier.Operation.MULTIPLY_TOTAL ? d * 100.0
-                                    : (entry.getKey().equals(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE) ? d * 10.0 : d);
+                for (AttributeModifiersComponent.Entry entry : entries) {
+                    EntityAttributeModifier entityAttributeModifier = entry.modifier();
+                    double d = entityAttributeModifier.value();
+                    double e = entityAttributeModifier.operation() == EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE
+                            || entityAttributeModifier.operation() == EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL ? d * 100.0
+                            : (entry.attribute().equals(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE) ? d * 10.0 : d);
 
-                    if (map.containsKey(entry.getKey())) {
-                        double totalValue = e + ((Boolean) map.get(entry.getKey()).get(2) ? (Double) map.get(entry.getKey()).get(1) : -(Double) map.get(entry.getKey()).get(1));
+                    if (map.containsKey(entry.attribute())) {
+                        double totalValue = e + ((Boolean) map.get(entry.attribute()).get(2) ? (Double) map.get(entry.attribute()).get(1) : -(Double) map.get(entry.attribute()).get(1));
                         if (totalValue > 0.0D) {
-                            list.set((Integer) map.get(entry.getKey()).get(0), Text.translatable("attribute.modifier.plus." + entityAttributeModifier.getOperation().getId(),
-                                    ItemStack.MODIFIER_FORMAT.format(totalValue), Text.translatable(entry.getKey().getTranslationKey())).formatted(Formatting.BLUE));
+                            list.set((Integer) map.get(entry.attribute()).get(0), Text.translatable("attribute.modifier.plus." + entityAttributeModifier.operation().getId(),
+                                    AttributeModifiersComponent.DECIMAL_FORMAT.format(totalValue), Text.translatable(entry.attribute().value().getTranslationKey())).formatted(Formatting.BLUE));
                         } else {
-                            list.set((Integer) map.get(entry.getKey()).get(0), Text.translatable("attribute.modifier.take." + entityAttributeModifier.getOperation().getId(),
-                                    ItemStack.MODIFIER_FORMAT.format(totalValue *= -1.0), Text.translatable(entry.getKey().getTranslationKey())).formatted(Formatting.RED));
+                            list.set((Integer) map.get(entry.attribute()).get(0), Text.translatable("attribute.modifier.take." + entityAttributeModifier.operation().getId(),
+                                    AttributeModifiersComponent.DECIMAL_FORMAT.format(totalValue *= -1.0), Text.translatable(entry.attribute().value().getTranslationKey())).formatted(Formatting.RED));
                         }
-                        map.put(entry.getKey(), List.of((Integer) map.get(entry.getKey()).get(0), totalValue, totalValue > 0.0D));
+                        map.put(entry.attribute(), List.of((Integer) map.get(entry.attribute()).get(0), totalValue, totalValue > 0.0D));
                     } else {
                         if (d > 0.0D) {
-                            list.add(Text.translatable("attribute.modifier.plus." + entityAttributeModifier.getOperation().getId(), ItemStack.MODIFIER_FORMAT.format(e),
-                                    Text.translatable(entry.getKey().getTranslationKey())).formatted(Formatting.BLUE));
+                            list.add(Text.translatable("attribute.modifier.plus." + entityAttributeModifier.operation().getId(), AttributeModifiersComponent.DECIMAL_FORMAT.format(e),
+                                    Text.translatable(entry.attribute().value().getTranslationKey())).formatted(Formatting.BLUE));
                         } else {
-                            list.add(Text.translatable("attribute.modifier.take." + entityAttributeModifier.getOperation().getId(), ItemStack.MODIFIER_FORMAT.format(e *= -1.0),
-                                    Text.translatable(entry.getKey().getTranslationKey())).formatted(Formatting.RED));
+                            list.add(Text.translatable("attribute.modifier.take." + entityAttributeModifier.operation().getId(), AttributeModifiersComponent.DECIMAL_FORMAT.format(e *= -1.0),
+                                    Text.translatable(entry.attribute().value().getTranslationKey())).formatted(Formatting.RED));
                         }
-                        map.put(entry.getKey(), List.of(list.size() - 1, e, d > 0.0D));
+                        map.put(entry.attribute(), List.of(list.size() - 1, e, d > 0.0D));
                     }
                 }
             }

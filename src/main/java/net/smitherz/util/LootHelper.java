@@ -1,7 +1,6 @@
 package net.smitherz.util;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -25,9 +24,7 @@ public class LootHelper {
             if (isRpgDifficultyLoaded && SmitherzMain.gemRpgDropMap.containsKey(mobEntity.getType())) {
                 float mobHealthMultiplier = ((EntityAccess) mobEntity).getMobHealthMultiplier();
                 float maxHealthMultiplier = 0.0f;
-                Iterator<Map.Entry<Float, Map<Item, Float>>> iterator = SmitherzMain.gemRpgDropMap.get(mobEntity.getType()).entrySet().iterator();
-                while (iterator.hasNext()) {
-                    Map.Entry<Float, Map<Item, Float>> entry = iterator.next();
+                for (Map.Entry<Float, Map<Item, Float>> entry : SmitherzMain.gemRpgDropMap.get(mobEntity.getType()).entrySet()) {
                     if (entry.getKey() <= mobHealthMultiplier && maxHealthMultiplier < entry.getKey()) {
                         maxHealthMultiplier = entry.getKey();
                     }
@@ -46,9 +43,7 @@ public class LootHelper {
             } else if (SmitherzMain.gemDropMap.containsKey(mobEntity.getType())) {
                 int rarity = 0;
                 int maxValue = 0;
-                Iterator<Integer> iterator = SmitherzMain.gemDropMap.get(mobEntity.getType()).keySet().iterator();
-                while (iterator.hasNext()) {
-                    int value = iterator.next();
+                for (int value : SmitherzMain.gemDropMap.get(mobEntity.getType()).keySet()) {
                     if (value > maxValue) {
                         maxValue = value;
                     }

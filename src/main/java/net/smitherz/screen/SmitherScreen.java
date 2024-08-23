@@ -21,8 +21,8 @@ import net.smitherz.network.SmitherClientPacket;
 @Environment(EnvType.CLIENT)
 public class SmitherScreen extends HandledScreen<SmitherScreenHandler> implements ScreenHandlerListener, Tab {
 
-    public static final Identifier TEXTURE = new Identifier("smitherz", "textures/gui/smither_screen.png");
-    public SmitherScreen.SmitherButton smitherButton;
+    public static final Identifier TEXTURE = Identifier.of("smitherz", "textures/gui/smither_screen.png");
+    private SmitherScreen.SmitherButton smitherButton;
 
     public SmitherScreen(SmitherScreenHandler handler, PlayerInventory playerInventory, Text title) {
         super(handler, playerInventory, title);
@@ -32,7 +32,7 @@ public class SmitherScreen extends HandledScreen<SmitherScreenHandler> implement
     @Override
     protected void init() {
         super.init();
-        ((SmitherScreenHandler) this.handler).addListener(this);
+        this.handler.addListener(this);
 
         int i = (this.width - this.backgroundWidth) / 2;
         int j = (this.height - this.backgroundHeight) / 2;
@@ -46,12 +46,11 @@ public class SmitherScreen extends HandledScreen<SmitherScreenHandler> implement
     @Override
     public void removed() {
         super.removed();
-        ((SmitherScreenHandler) this.handler).removeListener(this);
+        this.handler.removeListener(this);
     }
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        this.renderBackground(context);
         super.render(context, mouseX, mouseY, delta);
         this.drawMouseoverTooltip(context, mouseX, mouseY);
     }
@@ -76,6 +75,10 @@ public class SmitherScreen extends HandledScreen<SmitherScreenHandler> implement
         return SmithingScreen.class;
     }
 
+    public SmitherButton getSmitherButton() {
+        return this.smitherButton;
+    }
+
     public class SmitherButton extends ButtonWidget {
         private boolean disabled;
 
@@ -85,7 +88,7 @@ public class SmitherScreen extends HandledScreen<SmitherScreenHandler> implement
         }
 
         @Override
-        public void renderButton(DrawContext context, int mouseX, int mouseY, float delta) {
+        protected void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
             RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();

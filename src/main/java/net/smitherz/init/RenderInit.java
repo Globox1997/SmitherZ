@@ -20,11 +20,11 @@ import net.smitherz.tooltip.SmitherTooltipData;
 @Environment(EnvType.CLIENT)
 public class RenderInit {
 
-    private static final Identifier SMITHING_TAB_ICON = new Identifier("smitherz:textures/gui/smithing_tab_icon.png");
-    private static final Identifier SMITHER_TAB_ICON = new Identifier("smitherz:textures/gui/smither_tab_icon.png");
+    private static final Identifier SMITHING_TAB_ICON = Identifier.of("smitherz:textures/gui/smithing_tab_icon.png");
+    private static final Identifier SMITHER_TAB_ICON = Identifier.of("smitherz:textures/gui/smither_tab_icon.png");
 
-    private static final Identifier GRINDSTONE_TAB_ICON = new Identifier("smitherz:textures/gui/grindstone_tab_icon.png");
-    private static final Identifier GRINDER_TAB_ICON = new Identifier("smitherz:textures/gui/grinder_tab_icon.png");
+    private static final Identifier GRINDSTONE_TAB_ICON = Identifier.of("smitherz:textures/gui/grindstone_tab_icon.png");
+    private static final Identifier GRINDER_TAB_ICON = Identifier.of("smitherz:textures/gui/grinder_tab_icon.png");
 
     public static void init() {
         HandledScreens.<SmitherScreenHandler, SmitherScreen>register(ScreenInit.SMITHER_SCREEN_HANDLER_TYPE, SmitherScreen::new);

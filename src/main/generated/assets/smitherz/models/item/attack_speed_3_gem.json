@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "smitherz:item/attack_speed_3_gem"
+  }
+}

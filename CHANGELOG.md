@@ -1,6 +1,6 @@
 ### Added:
 - 
 ### Fixed:
-- Fixed gem tooltip
-### Changed:
 - 
+### Changed:
+- Updated to mc 1.21

@@ -1,18 +1,17 @@
 package net.smitherz.util;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Stream;
 
+import draylar.tiered.Tiered;
+import net.smitherz.init.ItemInit;
+import net.smitherz.item.component.GemComponent;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtList;
 import net.minecraft.world.World;
 import net.smitherz.SmitherzMain;
 import net.smitherz.init.ConfigInit;
@@ -23,7 +22,6 @@ import net.smitherz.item.Upgradeable;
 
 public class UpgradeHelper {
 
-    public static final String GEMS_KEY = "Gems";
     public static final Random RANDOM = new Random();
 
     public static void spawnItemContents(ItemEntity itemEntity, Stream<ItemStack> contents) {
@@ -39,12 +37,11 @@ public class UpgradeHelper {
         if (gemSlots == 0) {
             return Stream.empty();
         }
-        NbtCompound nbtCompound = stack.getNbt();
-        if (nbtCompound == null) {
+
+        if (stack.get(ItemInit.GEMS) == null) {
             return Stream.empty();
         }
-        NbtList nbtList = nbtCompound.getList(GEMS_KEY, NbtElement.COMPOUND_TYPE);
-        return nbtList.stream().map(NbtCompound.class::cast).map(ItemStack::fromNbt);
+        return stack.get(ItemInit.GEMS).gems().stream();
     }
 
     public static boolean addStackToUpgradeable(ItemStack upgradeable, ItemStack gemStack, @Nullable ItemStack hammer) {
@@ -56,13 +53,10 @@ public class UpgradeHelper {
             if (!gem.canLinkToItemStack(upgradeable)) {
                 return false;
             }
-            if (!ConfigInit.CONFIG.canLinkSameGem && upgradeable.hasNbt()) {
-                if (upgradeable.getNbt().contains(GEMS_KEY)) {
-                    NbtList nbtList = upgradeable.getNbt().getList(GEMS_KEY, NbtElement.COMPOUND_TYPE);
-                    for (int i = 0; i < nbtList.size(); i++) {
-                        if (ItemStack.fromNbt(nbtList.getCompound(i)).isOf(gemStack.getItem())) {
-                            return false;
-                        }
+            if (!ConfigInit.CONFIG.canLinkSameGem && upgradeable.get(ItemInit.GEMS) != null) {
+                for (int i = 0; i < upgradeable.get(ItemInit.GEMS).gems().size(); i++) {
+                    if (upgradeable.get(ItemInit.GEMS).gems().get(i).isOf(gemStack.getItem())) {
+                        return false;
                     }
                 }
             }
@@ -81,16 +75,10 @@ public class UpgradeHelper {
         }
 
         if (linkChance >= RANDOM.nextFloat()) {
-            NbtCompound nbtCompound = upgradeable.getOrCreateNbt();
-            if (!nbtCompound.contains(GEMS_KEY)) {
-                nbtCompound.put(GEMS_KEY, new NbtList());
-            }
-
-            NbtList nbtList = nbtCompound.getList(GEMS_KEY, NbtElement.COMPOUND_TYPE);
-            ItemStack itemStack2 = gemStack.copy();
-            NbtCompound nbtCompound3 = new NbtCompound();
-            itemStack2.writeNbt(nbtCompound3);
-            nbtList.add(nbtCompound3);
+            GemComponent gemComponent = upgradeable.getOrDefault(ItemInit.GEMS, GemComponent.DEFAULT);
+            List<ItemStack> gems = new ArrayList<ItemStack>(gemComponent.gems());
+            gems.add(gemStack.copy());
+            upgradeable.set(ItemInit.GEMS, new GemComponent(gems, gemComponent.size()));
 
         } else if (!hasHammer && gemStack.getItem() instanceof Gem gem && gem.getLinkBreakChance() > 0.00001f && RANDOM.nextFloat() <= gem.getLinkBreakChance()) {
             upgradeable.decrement(1);
@@ -108,7 +96,7 @@ public class UpgradeHelper {
         }
 
         ItemStack itemStack2 = upgradeable.copy();
-        if (itemStack2.hasNbt() && itemStack2.getNbt().contains(GEMS_KEY)) {
+        if (itemStack2.get(ItemInit.GEMS) != null) {
 
             float unlinkChance = ConfigInit.CONFIG.defaultUnlinkChance;
             boolean hasHammer = hammer != null && !hammer.isEmpty() && hammer.isIn(TagInit.EXTRACTION_ITEMS);
@@ -120,12 +108,9 @@ public class UpgradeHelper {
                 }
             }
 
+            List<ItemStack> list = new ArrayList<ItemStack>();
             if (hammer != null && !hammer.isEmpty()) {
-                List<ItemStack> list = new ArrayList<ItemStack>();
-                NbtList nbtList = itemStack2.getNbt().copy().getList(GEMS_KEY, NbtElement.COMPOUND_TYPE);
-                itemStack2.getNbt().remove(GEMS_KEY);
-
-                ItemStack stack = ItemStack.fromNbt(nbtList.getCompound(nbtList.size() - 1));
+                ItemStack stack = itemStack2.get(ItemInit.GEMS).gems().getLast().copy();
                 if (stack.getItem() instanceof Gem gem) {
                     unlinkChance = gem.getUnlinkChance() + (hasHammer ? (hammer.getItem() instanceof Hammer hammerItem ? hammerItem.getBonusChance() : ConfigInit.CONFIG.hammerExtraChance) : 0.0f);
                     if (RANDOM.nextFloat() <= unlinkChance) {
@@ -134,15 +119,13 @@ public class UpgradeHelper {
                 } else if (unlinkChance >= RANDOM.nextFloat()) {
                     list.add(stack);
                 }
-                nbtList.remove(nbtList.size() - 1);
-                itemStack2.getNbt().put(GEMS_KEY, nbtList);
-                list.add(0, itemStack2);
-                return list;
+                List<ItemStack> remainingGems = new ArrayList<ItemStack>(itemStack2.get(ItemInit.GEMS).gems());
+                remainingGems.removeLast();
+                itemStack2.set(ItemInit.GEMS, new GemComponent(remainingGems, itemStack2.get(ItemInit.GEMS).size()));
+
             } else {
-                List<ItemStack> list = new ArrayList<ItemStack>();
-                NbtList nbtList = itemStack2.getNbt().getList(GEMS_KEY, 9);
-                for (int i = 0; i < nbtList.size(); i++) {
-                    ItemStack stack = ItemStack.fromNbt(nbtList.getCompound(i));
+                List<ItemStack> remainingGems = new ArrayList<ItemStack>(itemStack2.get(ItemInit.GEMS).gems());
+                for (ItemStack stack : remainingGems) {
                     if (stack.getItem() instanceof Gem gem) {
                         unlinkChance = gem.getUnlinkChance()
                                 + (hasHammer ? (hammer.getItem() instanceof Hammer hammerItem ? hammerItem.getBonusChance() : ConfigInit.CONFIG.hammerExtraChance) : 0.0f);
@@ -150,13 +133,13 @@ public class UpgradeHelper {
                             list.add(stack);
                         }
                     } else if (unlinkChance >= RANDOM.nextFloat()) {
-                        list.add(ItemStack.fromNbt(nbtList.getCompound(i)));
+                        list.add(stack);
                     }
                 }
-                itemStack2.getNbt().remove(GEMS_KEY);
-                list.add(0, itemStack2);
-                return list;
+                itemStack2.set(ItemInit.GEMS, new GemComponent(new ArrayList<>(), itemStack2.get(ItemInit.GEMS).size()));
             }
+            list.add(0, itemStack2);
+            return list;
         }
 
         return List.of(ItemStack.EMPTY);
@@ -165,37 +148,31 @@ public class UpgradeHelper {
 
     public static void setGemSlots(ItemStack itemStack) {
         if (itemStack.getItem() instanceof Upgradeable) {
-            NbtCompound nbtCompound = new NbtCompound();
-            if (itemStack.hasNbt()) {
-                nbtCompound = itemStack.getNbt().copy();
-            }
+            GemComponent gemComponent = itemStack.getOrDefault(ItemInit.GEMS, GemComponent.DEFAULT);
 
             if (!SmitherzMain.isTieredLoaded) {
-                nbtCompound.putInt("GemSlots", skewedRandomInt(ConfigInit.CONFIG.maxGemSlots));
+                gemComponent = new GemComponent(new ArrayList<>(), skewedRandomInt(ConfigInit.CONFIG.maxGemSlots));
             } else {
-                if (!nbtCompound.isEmpty()) {
-                    if (nbtCompound.contains("Tiered") && nbtCompound.getCompound("Tiered").contains("Tier")
-                            && SmitherzMain.upgradeSlotMap.containsKey(nbtCompound.getCompound("Tiered").getString("Tier"))) {
-                        nbtCompound.putInt("GemSlots", SmitherzMain.upgradeSlotMap.get(nbtCompound.getCompound("Tiered").getString("Tier")));
+                if (itemStack.get(Tiered.TIER) != null) {
+                    if (SmitherzMain.upgradeSlotMap.containsKey(itemStack.get(Tiered.TIER).tier())) {
+                        gemComponent = new GemComponent(new ArrayList<>(), SmitherzMain.upgradeSlotMap.get(itemStack.get(Tiered.TIER).tier()));
                     } else {
-                        Iterator<String> iterator = SmitherzMain.upgradeSlotMap.keySet().iterator();
-                        while (iterator.hasNext()) {
-                            String id = iterator.next();
-                            if (nbtCompound.contains(id)) {
-                                nbtCompound.putInt("GemSlots", SmitherzMain.upgradeSlotMap.get(id));
+                        for (String id : SmitherzMain.upgradeSlotMap.keySet()) {
+                            if (itemStack.get(Tiered.TIER).tier().contains(id)) {
+                                gemComponent = new GemComponent(new ArrayList<>(), SmitherzMain.upgradeSlotMap.get(id));
                                 break;
                             }
                         }
                     }
                 }
             }
-            itemStack.setNbt(nbtCompound);
+            itemStack.set(ItemInit.GEMS, gemComponent);
         }
     }
 
     public static int getGemSlotSize(ItemStack itemStack) {
-        if (itemStack.hasNbt() && itemStack.getNbt().contains("GemSlots")) {
-            return itemStack.getNbt().getInt("GemSlots");
+        if (itemStack.get(ItemInit.GEMS) != null) {
+            return itemStack.get(ItemInit.GEMS).size();
         }
         return 0;
     }
@@ -207,9 +184,8 @@ public class UpgradeHelper {
         // Apply the exponential function to skew the distribution
         double skewedValue = Math.pow(randomValue, exponent);
         // Map the skewed value to the desired range
-        int result = (int) (skewedValue * (maxValue + 1));
 
-        return result;
+        return (int) (skewedValue * (maxValue + 1));
     }
 
 }
