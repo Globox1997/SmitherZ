@@ -141,15 +141,15 @@ public class ItemInit {
                             0.01f, 0.05f, 0.01f, TagInit.ARMOR));
 
             SPEED_I = register("speed_1_gem", new Gem(new Item.Settings(), ImmutableMultimap.of(EntityAttributes.GENERIC_MOVEMENT_SPEED,
-                    new GemEntityAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED.getTranslationKey(), 0.05D, Operation.ADDITION)), 0.45f, 0.0f, 0.5f, TagInit.ARMOR));
+                    new GemEntityAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED.getTranslationKey(), 0.005D, Operation.ADDITION)), 0.45f, 0.0f, 0.5f, TagInit.ARMOR));
             SPEED_II = register("speed_2_gem", new Gem(new Item.Settings(), ImmutableMultimap.of(EntityAttributes.GENERIC_MOVEMENT_SPEED,
-                    new GemEntityAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED.getTranslationKey(), 0.1D, Operation.ADDITION)), 0.33f, 0.0f, 0.3f, TagInit.ARMOR));
+                    new GemEntityAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED.getTranslationKey(), 0.01D, Operation.ADDITION)), 0.33f, 0.0f, 0.3f, TagInit.ARMOR));
             SPEED_III = register("speed_3_gem", new Gem(new Item.Settings(), ImmutableMultimap.of(EntityAttributes.GENERIC_MOVEMENT_SPEED,
-                    new GemEntityAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED.getTranslationKey(), 0.15D, Operation.ADDITION)), 0.25f, 0.0f, 0.2f, TagInit.ARMOR));
+                    new GemEntityAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED.getTranslationKey(), 0.015D, Operation.ADDITION)), 0.25f, 0.0f, 0.2f, TagInit.ARMOR));
             SPEED_IV = register("speed_4_gem", new Gem(new Item.Settings(), ImmutableMultimap.of(EntityAttributes.GENERIC_MOVEMENT_SPEED,
-                    new GemEntityAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED.getTranslationKey(), 0.2D, Operation.ADDITION)), 0.09f, 0.01f, 0.05f, TagInit.ARMOR));
+                    new GemEntityAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED.getTranslationKey(), 0.02D, Operation.ADDITION)), 0.09f, 0.01f, 0.05f, TagInit.ARMOR));
             SPEED_V = register("speed_5_gem", new Gem(new Item.Settings(), ImmutableMultimap.of(EntityAttributes.GENERIC_MOVEMENT_SPEED,
-                    new GemEntityAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED.getTranslationKey(), 0.3D, Operation.ADDITION)), 0.01f, 0.05f, 0.01f, TagInit.ARMOR));
+                    new GemEntityAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED.getTranslationKey(), 0.03D, Operation.ADDITION)), 0.01f, 0.05f, 0.01f, TagInit.ARMOR));
 
             ATTACK_SPEED_I = register("attack_speed_1_gem", new Gem(new Item.Settings(),
                     ImmutableMultimap.of(EntityAttributes.GENERIC_ATTACK_SPEED, new GemEntityAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED.getTranslationKey(), 0.05D, Operation.ADDITION)),
