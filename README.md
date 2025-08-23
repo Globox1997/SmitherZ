@@ -63,3 +63,18 @@ Example for a socket count json:
 }
 ```
 
+### Commands
+`/smither slots playername add integer`
+- Increase the gem slot count of the mainhand item by the integer value
+
+`/smither slots playername remove integer`
+- Decrease the gem slot count of the mainhand item by the integer value
+
+`/smither slots playername set integer`
+- Set the gem slot count of the mainhand item by the integer value. *This specific command clears all linked gems of the item.*
+
+`/smither gems playername add item`
+- Adds the gem to the mainhand item if possible
+
+`/smither gems playername remove item`
+- Removes the gem from the mainhand item if possible
