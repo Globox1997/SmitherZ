@@ -10,6 +10,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.smitherz.init.ItemInit;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -30,6 +31,7 @@ public class ItemStackMixin {
         applyGemAttributeModifier(attributeModifiersComponent, slot, null, attributeModifierConsumer);
     }
 
+    @Unique
     private void applyGemAttributeModifier(@Nullable AttributeModifiersComponent attributeModifiersComponent, @Nullable EquipmentSlot equipmentSlot, @Nullable AttributeModifierSlot attributeModifierSlot, BiConsumer<RegistryEntry<EntityAttribute>, EntityAttributeModifier> attributeModifierConsumer) {
         ItemStack itemStack = (ItemStack) (Object) this;
         if (itemStack.get(ItemInit.GEMS) != null) {
