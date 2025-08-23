@@ -3,9 +3,7 @@
     "text.autoconfig.smitherz.option.maxGemSlots": "Max Gem Slots",
     "text.autoconfig.smitherz.option.showZeroSlotsInfo": "Show Zero Slots Info",
     "text.autoconfig.smitherz.option.showHoldShiftInfo": "Show Hold Shift Info",
-    "text.autoconfig.smitherz.option.defaultLinkChance": "Default Link Chance",
-    "text.autoconfig.smitherz.option.defaultUnlinkChance": "Default Unlink Chance",
-    "text.autoconfig.smitherz.option.hammerExtraChance": "Hammer Extra Chance",
+    "text.autoconfig.smitherz.option.bonusItemExtraChance": "Bonus Item Extra Chance",
     "text.autoconfig.smitherz.option.defaultGems": "Default Gems",
     "text.autoconfig.smitherz.option.canLinkSameGem": "Can Link Same Gem",
     "text.autoconfig.smitherz.option.mobsCanDropGems": "Mobs Can Drop Gems",
@@ -65,5 +63,13 @@
     "item.smitherz.extraction_bonus": "+%s%% Extraction Chance",
     "item.smitherz.gem.tooltip": "%s%% Link Chance",
     "item.smitherz.gem.tooltip_2": "%s%% Link (+%s%% Break) Chance",
-    "item.smitherz.gem.tooltip_3": "%s%% Extraction Chance"
+    "item.smitherz.gem.tooltip_3": "%s%% Extraction Chance",
+
+    "commands.smitherz.slot_change": "Changed gem slots of %s's main hand item",
+    "commands.smitherz.slot_change_fail": "Failed to change gem slots of %s's main hand item",
+    "commands.smitherz.gem_added": "Added gem to %s's main hand item",
+    "commands.smitherz.gem_added_missing": "Missing slot to add gem to %s's main hand item",
+    "commands.smitherz.gem_removed": "Removed gem from %s's main hand item",
+    "commands.smitherz.gem_removed_missing": "Missing gem from %s's main hand item to remove it",
+    "commands.smitherz.gem_change_fail": "Failed to change gem from %s's main hand item"
 }
