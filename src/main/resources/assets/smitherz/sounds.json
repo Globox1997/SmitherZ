@@ -1,0 +1,12 @@
+{
+  "linkage_success": {
+    "sounds": [
+      "smitherz:linkage_success"
+    ]
+  },
+  "linkage_failure": {
+    "sounds": [
+      "smitherz:linkage_failure"
+    ]
+  }
+}

@@ -7,6 +7,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
+import net.minecraft.util.Identifier;
 import net.smitherz.init.*;
 import net.smitherz.network.SmitherServerPacket;
 
@@ -50,6 +51,11 @@ public class SmitherzMain implements ModInitializer {
         EventInit.init();
         SmitherServerPacket.init();
         CommandInit.init();
+        SoundInit.init();
+    }
+
+    public static Identifier identifierOf(String name) {
+        return Identifier.of("smitherz", name);
     }
 
 }

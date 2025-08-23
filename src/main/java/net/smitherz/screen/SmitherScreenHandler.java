@@ -1,7 +1,5 @@
 package net.smitherz.screen;
 
-import java.util.List;
-
 import net.libz.access.ScreenHandlerAccess;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -17,16 +15,14 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.WorldEvents;
-import net.smitherz.init.ConfigInit;
-import net.smitherz.init.ItemInit;
-import net.smitherz.init.ScreenInit;
-import net.smitherz.init.TagInit;
+import net.smitherz.init.*;
 import net.smitherz.item.Gem;
 import net.smitherz.item.Upgradeable;
 import net.smitherz.network.SmitherServerPacket;
 import net.smitherz.screen.widget.GemSlot;
 import net.smitherz.util.UpgradeHelper;
+
+import java.util.List;
 
 public class SmitherScreenHandler extends ScreenHandler implements ScreenHandlerAccess {
 
@@ -144,11 +140,15 @@ public class SmitherScreenHandler extends ScreenHandler implements ScreenHandler
 
     public void smith() {
         if (this.getSlot(0).hasStack() && !getUnlickedGem().isEmpty() && this.getSlot(0).getStack().getItem() instanceof Upgradeable) {
-            UpgradeHelper.tryAddStackToUpgradeable(this.getSlot(0).getStack(), getUnlickedGem(), this.getSlot(1).getStack());
-            updateGemSlots(this.getSlot(0).getStack());
+            boolean linkageSuccess = UpgradeHelper.tryAddStackToUpgradeable(this.getSlot(0).getStack(), getUnlickedGem(), this.getSlot(1).getStack());
+
             context.run((world, pos) -> {
-                world.syncWorldEvent(WorldEvents.SMITHING_TABLE_USED, pos, 0);
+                if (world instanceof ServerWorld serverWorld) {
+                    serverWorld.playSound(null, pos.getX(), pos.getY(), pos.getZ(), linkageSuccess ? SoundInit.LINKAGE_SUCCESS_EVENT : SoundInit.LINKAGE_FAILURE_EVENT, SoundCategory.BLOCKS, 1.0f, 0.8f + 0.4f * serverWorld.getRandom().nextFloat(), serverWorld.getRandom().nextLong());
+                }
             });
+
+            updateGemSlots(this.getSlot(0).getStack());
             if (!this.getSlot(0).hasStack()) {
                 context.run((world, pos) -> {
                     if (world instanceof ServerWorld serverWorld) {
@@ -157,7 +157,6 @@ public class SmitherScreenHandler extends ScreenHandler implements ScreenHandler
                 });
             }
         }
-
     }
 
     private ItemStack getUnlickedGem() {

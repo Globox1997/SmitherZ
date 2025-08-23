@@ -78,8 +78,11 @@ public class UpgradeHelper {
             hammer.decrement(1);
         }
 
+
         if (linkChance >= RANDOM.nextFloat()) {
             addStackToUpgradeable(upgradeable, gemStack);
+            gemStack.decrement(1);
+            return true;
         } else if (!hasHammer && gemStack.getItem() instanceof Gem gem && gem.getLinkBreakChance() > 0.00001f && RANDOM.nextFloat() <= gem.getLinkBreakChance()) {
             upgradeable.decrement(1);
         }
@@ -87,7 +90,7 @@ public class UpgradeHelper {
             upgradeable.decrement(1);
         }
         gemStack.decrement(1);
-        return true;
+        return false;
     }
 
     public static void addStackToUpgradeable(ItemStack upgradeable, ItemStack gemStack) {
