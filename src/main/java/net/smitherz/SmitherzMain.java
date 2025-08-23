@@ -20,8 +20,6 @@ public class SmitherzMain implements ModInitializer {
     public static final boolean isTieredLoaded = FabricLoader.getInstance().isModLoaded("tiered");
 
     // Todo:
-    // custom sound for smithing and unlinking
-    // ---
     // should this be dependend on tieredz? cause of health issue and other things probably
     // ---
     // numismatic compat datapack for money cost
@@ -29,8 +27,6 @@ public class SmitherzMain implements ModInitializer {
     // The charm is only good for one linking attempt.
     // ---
     // You get additional linking % every 20 levels on your character, guild house blacksmith upgrades also add additional %.
-    // ---
-    // multiple different hammers?
     // ---
     // expand gems on effects and other stuff
     // ---
