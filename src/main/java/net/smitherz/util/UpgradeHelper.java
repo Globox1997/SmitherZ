@@ -187,7 +187,11 @@ public class UpgradeHelper {
             if (count >= 0) {
                 gemComponent = new GemComponent(new ArrayList<>(), Math.min(count, ConfigInit.CONFIG.maxGemSlots));
             } else if (!SmitherzMain.isTieredLoaded) {
-                gemComponent = new GemComponent(new ArrayList<>(), skewedRandomInt(ConfigInit.CONFIG.maxGemSlots));
+                if (ConfigInit.CONFIG.gemSlotRandomness) {
+                    gemComponent = new GemComponent(new ArrayList<>(), skewedRandomInt(ConfigInit.CONFIG.maxGemSlots));
+                } else {
+                    gemComponent = new GemComponent(new ArrayList<>(), ConfigInit.CONFIG.maxGemSlots);
+                }
             } else {
                 if (itemStack.get(Tiered.TIER) != null) {
                     if (SmitherzMain.upgradeSlotMap.containsKey(itemStack.get(Tiered.TIER).tier())) {

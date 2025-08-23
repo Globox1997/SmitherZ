@@ -8,6 +8,7 @@
     "text.autoconfig.smitherz.option.canLinkSameGem": "Can Link Same Gem",
     "text.autoconfig.smitherz.option.mobsCanDropGems": "Mobs Can Drop Gems",
     "text.autoconfig.smitherz.option.linkBreakChance": "Link Break Chance",
+    "text.autoconfig.smitherz.option.gemSlotRandomness": "Gem Slot Randomness",
 
     "item.smitherz.item_group": "SmitherZ",
     "item.smitherz.smither_hammer_1": "Smither Hammer",

@@ -9,6 +9,8 @@ import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
 public class SmitherConfig implements ConfigData {
 
     public int maxGemSlots = 6;
+    @Comment("If TieredZ is not loaded, gem slot count is random with more slots are more rare")
+    public boolean gemSlotRandomness = true;
     public boolean showZeroSlotsInfo = false;
     public boolean showHoldShiftInfo = true;
 

@@ -9,10 +9,11 @@ SmitherZ is licensed under MIT.
 
 ### Datapack
 Gems can be created, gem drops can be set (mainly for RpgDifficulty compat) and item socket count can be set (mainly for TieredZ compat).  
-If you don't know how to create a datapack check out [Data Pack Wiki](https://minecraft.fandom.com/wiki/Data_Pack) website and try to create your first one for the vanilla game.  
+If you don't know how to create a datapack check out [Data Pack Wiki](https://minecraft.wiki/w/Data_pack) website and try to create your first one for the vanilla game.  
 If you know how to create one, the folder path has to be ```data\modid\FOLDER\YOURFILE.json```.  
 The `FOLDER` is `gems` for new gems, `gem_drops` for adding gem drops and `gem_upgrades` for item socket count.  
 For creating new gems you have to put the datapack under ```.minecraft\global_packs\required_datapacks\YOURDATAPACK```.  
+If you created new gems via the global datapack, you will want to texture and translate them by creating a resource pack. To load resource packs globally, it will require a global datapack loader.  
 
 Example for a new gem json:
 ```json
@@ -25,7 +26,7 @@ Example for a new gem json:
             {
                 "type": "generic.max_health",
                 "modifier": {
-                    "operation": "ADDITION",
+                    "operation": "ADD_VALUE",
                     "amount": 2
                 }
             }
