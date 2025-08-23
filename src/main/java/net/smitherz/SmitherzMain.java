@@ -49,6 +49,7 @@ public class SmitherzMain implements ModInitializer {
         ScreenInit.init();
         EventInit.init();
         SmitherServerPacket.init();
+        CommandInit.init();
     }
 
 }

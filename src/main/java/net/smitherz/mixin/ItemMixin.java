@@ -18,7 +18,7 @@ public class ItemMixin {
     @Inject(method = "onCraftByPlayer", at = @At("TAIL"))
     private void onCraftByPlayerMixin(ItemStack stack, World world, PlayerEntity player, CallbackInfo info) {
         if (!world.isClient() && !stack.isEmpty()) {
-            UpgradeHelper.setGemSlots(stack);
+            UpgradeHelper.setGemSlots(stack, -1);
         }
     }
 
@@ -26,7 +26,7 @@ public class ItemMixin {
     @Inject(method = "onCraft", at = @At("TAIL"))
     private void onCraftMixin(ItemStack stack, World world, CallbackInfo info) {
         if (!world.isClient() && !stack.isEmpty()) {
-            UpgradeHelper.setGemSlots(stack);
+            UpgradeHelper.setGemSlots(stack, -1);
         }
     }
 

@@ -106,7 +106,7 @@ public class GrinderScreenHandler extends ScreenHandler implements ScreenHandler
         this.unlinkedItemStacks.clear();
 
         if (!upgradeable.isEmpty()) {
-            List<ItemStack> resultStacks = UpgradeHelper.removeStackFromUpgradeable(upgradeable, this.input.getStack(1));
+            List<ItemStack> resultStacks = UpgradeHelper.tryRemoveStackFromUpgradeable(upgradeable, this.input.getStack(1));
 
             if (!resultStacks.isEmpty()) {
                 this.result.setStack(0, resultStacks.get(0));

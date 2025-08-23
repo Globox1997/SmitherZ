@@ -144,7 +144,7 @@ public class SmitherScreenHandler extends ScreenHandler implements ScreenHandler
 
     public void smith() {
         if (this.getSlot(0).hasStack() && !getUnlickedGem().isEmpty() && this.getSlot(0).getStack().getItem() instanceof Upgradeable) {
-            UpgradeHelper.addStackToUpgradeable(this.getSlot(0).getStack(), getUnlickedGem(), this.getSlot(1).getStack());
+            UpgradeHelper.tryAddStackToUpgradeable(this.getSlot(0).getStack(), getUnlickedGem(), this.getSlot(1).getStack());
             updateGemSlots(this.getSlot(0).getStack());
             context.run((world, pos) -> {
                 world.syncWorldEvent(WorldEvents.SMITHING_TABLE_USED, pos, 0);
