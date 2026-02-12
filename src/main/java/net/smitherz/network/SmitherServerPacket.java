@@ -55,8 +55,8 @@ public class SmitherServerPacket {
         });
         ServerPlayNetworking.registerGlobalReceiver(SmithPacket.PACKET_ID, (payload, context) -> {
             context.server().execute(() -> {
-                if (context.player().currentScreenHandler instanceof SmitherScreenHandler) {
-                    ((SmitherScreenHandler) context.player().currentScreenHandler).smith();
+                if (context.player().currentScreenHandler instanceof SmitherScreenHandler smitherScreenHandler) {
+                    smitherScreenHandler.smith();
                 }
             });
         });

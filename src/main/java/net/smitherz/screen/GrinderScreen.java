@@ -7,22 +7,37 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.GrindstoneScreen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerListener;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.smitherz.SmitherzMain;
 
 @Environment(EnvType.CLIENT)
-public class GrinderScreen extends HandledScreen<GrinderScreenHandler> implements Tab {
+public class GrinderScreen extends HandledScreen<GrinderScreenHandler> implements ScreenHandlerListener, Tab {
 
-    public static final Identifier TEXTURE = Identifier.of("smitherz", "textures/gui/grinder_screen.png");
+    public static final Identifier TEXTURE = SmitherzMain.identifierOf("textures/gui/grinder_screen.png");
 
     public GrinderScreen(GrinderScreenHandler handler, PlayerInventory playerInventory, Text title) {
         super(handler, playerInventory, title);
     }
 
     @Override
+    protected void init() {
+        super.init();
+        this.handler.addListener(this);
+    }
+
+    @Override
+    public void removed() {
+        super.removed();
+        this.handler.removeListener(this);
+    }
+
+    @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         super.render(context, mouseX, mouseY, delta);
-        this.drawBackground(context, delta, mouseX, mouseY);
         this.drawMouseoverTooltip(context, mouseX, mouseY);
     }
 
@@ -42,4 +57,13 @@ public class GrinderScreen extends HandledScreen<GrinderScreenHandler> implement
         return GrindstoneScreen.class;
     }
 
+    @Override
+    public void onSlotUpdate(ScreenHandler handler, int slotId, ItemStack stack) {
+
+    }
+
+    @Override
+    public void onPropertyUpdate(ScreenHandler handler, int property, int value) {
+
+    }
 }

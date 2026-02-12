@@ -10,10 +10,11 @@ import net.minecraft.client.gui.screen.ingame.SmithingScreen;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.smitherz.screen.GrinderScreen;
-import net.smitherz.screen.GrinderScreenHandler;
 import net.smitherz.screen.SmitherScreen;
-import net.smitherz.screen.SmitherScreenHandler;
-import net.smitherz.screen.widget.*;
+import net.smitherz.screen.widget.GrinderTab;
+import net.smitherz.screen.widget.GrindstoneTab;
+import net.smitherz.screen.widget.SmitherTab;
+import net.smitherz.screen.widget.SmithingTab;
 import net.smitherz.tooltip.SmitherTooltipComponent;
 import net.smitherz.tooltip.SmitherTooltipData;
 
@@ -27,8 +28,8 @@ public class RenderInit {
     private static final Identifier GRINDER_TAB_ICON = Identifier.of("smitherz:textures/gui/grinder_tab_icon.png");
 
     public static void init() {
-        HandledScreens.<SmitherScreenHandler, SmitherScreen>register(ScreenInit.SMITHER_SCREEN_HANDLER_TYPE, SmitherScreen::new);
-        HandledScreens.<GrinderScreenHandler, GrinderScreen>register(ScreenInit.GRINDER_SCREEN_HANDLER_TYPE, GrinderScreen::new);
+        HandledScreens.register(ScreenInit.SMITHER_SCREEN_HANDLER_TYPE, SmitherScreen::new);
+        HandledScreens.register(ScreenInit.GRINDER_SCREEN_HANDLER_TYPE, GrinderScreen::new);
 
         TabRegistry.registerOtherTab(new SmithingTab(Text.translatable("container.upgrade"), SMITHING_TAB_ICON, 0, SmithingScreen.class), SmithingScreen.class);
         TabRegistry.registerOtherTab(new SmitherTab(Text.translatable("container.link"), SMITHER_TAB_ICON, 1, SmitherScreen.class), SmithingScreen.class);

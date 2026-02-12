@@ -1,7 +1,6 @@
 package net.smitherz.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.libz.api.Tab;
@@ -16,12 +15,13 @@ import net.minecraft.screen.ScreenHandlerListener;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.smitherz.SmitherzMain;
 import net.smitherz.network.SmitherClientPacket;
 
 @Environment(EnvType.CLIENT)
 public class SmitherScreen extends HandledScreen<SmitherScreenHandler> implements ScreenHandlerListener, Tab {
 
-    public static final Identifier TEXTURE = Identifier.of("smitherz", "textures/gui/smither_screen.png");
+    public static final Identifier TEXTURE = SmitherzMain.identifierOf("textures/gui/smither_screen.png");
     private SmitherScreen.SmitherButton smitherButton;
 
     public SmitherScreen(SmitherScreenHandler handler, PlayerInventory playerInventory, Text title) {
@@ -36,7 +36,7 @@ public class SmitherScreen extends HandledScreen<SmitherScreenHandler> implement
 
         int i = (this.width - this.backgroundWidth) / 2;
         int j = (this.height - this.backgroundHeight) / 2;
-        this.smitherButton = (SmitherScreen.SmitherButton) this.addDrawableChild(new SmitherScreen.SmitherButton(i + 148, j + 18, (button) -> {
+        this.smitherButton = this.addDrawableChild(new SmitherScreen.SmitherButton(i + 148, j + 18, (button) -> {
             if (button instanceof SmitherScreen.SmitherButton && !((SmitherScreen.SmitherButton) button).disabled) {
                 SmitherClientPacket.writeC2SSmitherPacket();
             }

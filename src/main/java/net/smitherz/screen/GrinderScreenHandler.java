@@ -34,11 +34,7 @@ public class GrinderScreenHandler extends ScreenHandler implements ScreenHandler
     };
     private final ScreenHandlerContext context;
     private BlockPos pos;
-    private List<ItemStack> unlinkedItemStacks = new ArrayList<ItemStack>();
-
-    public GrinderScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, ScreenHandlerContext.EMPTY);
-    }
+    private final List<ItemStack> unlinkedItemStacks = new ArrayList<ItemStack>();
 
     public GrinderScreenHandler(int syncId, PlayerInventory playerInventory, final ScreenHandlerContext context) {
         super(ScreenInit.GRINDER_SCREEN_HANDLER_TYPE, syncId);
@@ -74,8 +70,8 @@ public class GrinderScreenHandler extends ScreenHandler implements ScreenHandler
                 });
                 GrinderScreenHandler.this.input.setStack(0, ItemStack.EMPTY);
                 GrinderScreenHandler.this.input.getStack(1).decrement(1);
-                for (int i = 0; i < unlinkedItemStacks.size(); i++) {
-                    playerInventory.offerOrDrop(unlinkedItemStacks.get(i));
+                for (ItemStack unlinkedItemStack : unlinkedItemStacks) {
+                    playerInventory.offerOrDrop(unlinkedItemStack);
                 }
             }
         });

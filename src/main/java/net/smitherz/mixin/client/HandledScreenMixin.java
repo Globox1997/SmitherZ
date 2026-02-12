@@ -29,7 +29,7 @@ public abstract class HandledScreenMixin<T extends ScreenHandler> extends Screen
     @Shadow
     @Mutable
     @Final
-    protected T handler;;
+    protected T handler;
 
     public HandledScreenMixin(Text title) {
         super(title);
@@ -38,7 +38,7 @@ public abstract class HandledScreenMixin<T extends ScreenHandler> extends Screen
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/ingame/HandledScreen;drawSlot(Lnet/minecraft/client/gui/DrawContext;Lnet/minecraft/screen/slot/Slot;)V"), locals = LocalCapture.CAPTURE_FAILSOFT)
     private void renderMixin(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo info, int i, int j, int k, Slot slot) {
         if (isSmitherScreen && k >= 2 && slot instanceof GemSlot) {
-            ItemStack stack = ((ScreenHandler) this.handler).slots.get(0).getStack();
+            ItemStack stack = this.handler.slots.get(0).getStack();
             if (!stack.isEmpty()) {
                 int gemSlotSize = UpgradeHelper.getGemSlotSize(stack);
                 if (gemSlotSize > k - 2) {
