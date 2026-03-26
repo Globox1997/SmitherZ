@@ -71,6 +71,18 @@ public class ItemInit {
     public static Item ATTACK_SPEED_IV;
     public static Item ATTACK_SPEED_V;
 
+    public static Item HASTE_I;
+    public static Item HASTE_II;
+    public static Item HASTE_III;
+    public static Item HASTE_IV;
+    public static Item HASTE_V;
+
+    public static Item REACH_I;
+    public static Item REACH_II;
+    public static Item REACH_III;
+    public static Item REACH_IV;
+    public static Item REACH_V;
+
     public static final ComponentType<GemComponent> GEMS = registerComponent("smitherz:gems", builder -> builder.codec(GemComponent.CODEC).packetCodec(GemComponent.PACKET_CODEC));
 
 
@@ -174,6 +186,28 @@ public class ItemInit {
             ATTACK_SPEED_V = register("attack_speed_5_gem", new Gem(new Item.Settings(),
                     Map.of(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED.getKey().get().getValue(), 0.3D, Operation.ADD_VALUE)),
                     0.01f, 0.05f, 0.01f, ItemTags.BREAKS_DECORATED_POTS));
+
+            HASTE_I = register("haste_1_gem", new Gem(new Item.Settings(), Map.of(EntityAttributes.PLAYER_MINING_EFFICIENCY,
+                    new EntityAttributeModifier(EntityAttributes.PLAYER_MINING_EFFICIENCY.getKey().get().getValue(), 0.5D, Operation.ADD_VALUE)), 0.45f, 0.0f, 0.5f, ItemTags.MINING_ENCHANTABLE));
+            HASTE_II = register("haste_2_gem", new Gem(new Item.Settings(), Map.of(EntityAttributes.PLAYER_MINING_EFFICIENCY,
+                    new EntityAttributeModifier(EntityAttributes.PLAYER_MINING_EFFICIENCY.getKey().get().getValue(), 1D, Operation.ADD_VALUE)), 0.33f, 0.0f, 0.3f, ItemTags.MINING_ENCHANTABLE));
+            HASTE_III = register("haste_3_gem", new Gem(new Item.Settings(), Map.of(EntityAttributes.PLAYER_MINING_EFFICIENCY,
+                    new EntityAttributeModifier(EntityAttributes.PLAYER_MINING_EFFICIENCY.getKey().get().getValue(), 1.5D, Operation.ADD_VALUE)), 0.25f, 0.0f, 0.2f, ItemTags.MINING_ENCHANTABLE));
+            HASTE_IV = register("haste_4_gem", new Gem(new Item.Settings(), Map.of(EntityAttributes.PLAYER_MINING_EFFICIENCY,
+                    new EntityAttributeModifier(EntityAttributes.PLAYER_MINING_EFFICIENCY.getKey().get().getValue(), 2D, Operation.ADD_VALUE)), 0.09f, 0.01f, 0.05f, ItemTags.MINING_ENCHANTABLE));
+            HASTE_V = register("haste_5_gem", new Gem(new Item.Settings(), Map.of(EntityAttributes.PLAYER_MINING_EFFICIENCY,
+                    new EntityAttributeModifier(EntityAttributes.PLAYER_MINING_EFFICIENCY.getKey().get().getValue(), 3D, Operation.ADD_VALUE)), 0.01f, 0.05f, 0.01f, ItemTags.MINING_ENCHANTABLE));
+
+            REACH_I = register("reach_1_gem", new Gem(new Item.Settings(), Map.of(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE,
+                    new EntityAttributeModifier(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE.getKey().get().getValue(), 0.5D, EntityAttributeModifier.Operation.ADD_VALUE)), 0.45f, 0.0f, 0.5f, ItemTags.SWORDS));
+            REACH_II = register("reach_2_gem", new Gem(new Item.Settings(), Map.of(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE,
+                    new EntityAttributeModifier(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE.getKey().get().getValue(), 1D, EntityAttributeModifier.Operation.ADD_VALUE)), 0.33f, 0.0f, 0.3f, ItemTags.SWORDS));
+            REACH_III = register("reach_3_gem", new Gem(new Item.Settings(), Map.of(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE,
+                    new EntityAttributeModifier(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE.getKey().get().getValue(), 1.5D, EntityAttributeModifier.Operation.ADD_VALUE)), 0.25f, 0.0f, 0.2f, ItemTags.SWORDS));
+            REACH_IV = register("reach_4_gem", new Gem(new Item.Settings(), Map.of(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE,
+                    new EntityAttributeModifier(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE.getKey().get().getValue(), 2D, EntityAttributeModifier.Operation.ADD_VALUE)), 0.09f, 0.01f, 0.05f, ItemTags.SWORDS));
+            REACH_V = register("reach_5_gem", new Gem(new Item.Settings(), Map.of(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE,
+                    new EntityAttributeModifier(EntityAttributes.PLAYER_ENTITY_INTERACTION_RANGE.getKey().get().getValue(), 3D, EntityAttributeModifier.Operation.ADD_VALUE)), 0.01f, 0.05f, 0.01f, ItemTags.SWORDS));
         }
         Registry.register(Registries.ITEM_GROUP, SMITHERZ_ITEM_GROUP,
                 FabricItemGroup.builder().icon(() -> new ItemStack(SMITHER_HAMMER_4)).displayName(Text.translatable("item.smitherz.item_group")).build());

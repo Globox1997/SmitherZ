@@ -5,6 +5,8 @@
             "smitherz:defense_1_gem",
             "smitherz:health_1_gem",
             "smitherz:speed_1_gem",
+            "smitherz:haste_1_gem",
+            "smitherz:reach_1_gem",
             "smitherz:attack_speed_1_gem"
         ],
         "drop_chance": 0.01,
@@ -28,6 +30,8 @@
             "smitherz:defense_2_gem",
             "smitherz:health_2_gem",
             "smitherz:speed_2_gem",
+            "smitherz:haste_2_gem",
+            "smitherz:reach_2_gem",
             "smitherz:attack_speed_2_gem"
         ],
         "drop_chance": 0.005,
@@ -51,6 +55,8 @@
             "smitherz:defense_2_gem",
             "smitherz:health_2_gem",
             "smitherz:speed_2_gem",
+            "smitherz:haste_2_gem",
+            "smitherz:reach_2_gem",
             "smitherz:attack_speed_2_gem"
         ],
         "drop_chance": 0.005,
@@ -79,6 +85,8 @@
             "smitherz:defense_3_gem",
             "smitherz:health_3_gem",
             "smitherz:speed_3_gem",
+            "smitherz:haste_3_gem",
+            "smitherz:reach_3_gem",
             "smitherz:attack_speed_3_gem"
         ],
         "drop_chance": 0.005,
@@ -98,6 +106,8 @@
             "smitherz:defense_4_gem",
             "smitherz:health_4_gem",
             "smitherz:speed_4_gem",
+            "smitherz:haste_4_gem",
+            "smitherz:reach_4_gem",
             "smitherz:attack_speed_4_gem"
         ],
         "drop_chance": 0.005,

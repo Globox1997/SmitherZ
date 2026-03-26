@@ -50,6 +50,18 @@
     "item.smitherz.attack_speed_4_gem": "Attack Speed IV Gem",
     "item.smitherz.attack_speed_5_gem": "Attack Speed V Gem",
 
+    "item.smitherz.haste_1_gem": "Haste I Gem",
+    "item.smitherz.haste_2_gem": "Haste II Gem",
+    "item.smitherz.haste_3_gem": "Haste III Gem",
+    "item.smitherz.haste_4_gem": "Haste IV Gem",
+    "item.smitherz.haste_5_gem": "Haste V Gem",
+
+    "item.smitherz.reach_1_gem": "Reach I Gem",
+    "item.smitherz.reach_2_gem": "Reach II Gem",
+    "item.smitherz.reach_3_gem": "Reach III Gem",
+    "item.smitherz.reach_4_gem": "Reach IV Gem",
+    "item.smitherz.reach_5_gem": "Reach V Gem",
+
     "item.smitherz.zero_slots": "§70 Slots",
     "item.modifiers.shift": "§7Hold Shift",
     "item.modifiers.pressed_shift": "§7Gem Attributes",
@@ -72,5 +84,9 @@
     "commands.smitherz.gem_added_missing": "Missing slot to add gem to %s's main hand item",
     "commands.smitherz.gem_removed": "Removed gem from %s's main hand item",
     "commands.smitherz.gem_removed_missing": "Missing gem from %s's main hand item to remove it",
-    "commands.smitherz.gem_change_fail": "Failed to change gem from %s's main hand item"
+    "commands.smitherz.gem_change_fail": "Failed to change gem from %s's main hand item",
+
+    "tag.item.smitherz.gems": "Gems",
+    "tag.item.smitherz.bonus_items": "Bonus Items",
+    "tag.item.smitherz.extraction_items": "Extraction Items"
 }

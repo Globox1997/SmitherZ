@@ -1,6 +1,7 @@
 ### Added:
-- 
+- Added haste gem
+- Added reach gem
 ### Fixed:
-- Fixed grinding screen
+- 
 ### Changed:
 - 
