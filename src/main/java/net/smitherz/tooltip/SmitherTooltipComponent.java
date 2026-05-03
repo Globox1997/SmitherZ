@@ -41,11 +41,11 @@ public class SmitherTooltipComponent implements TooltipComponent {
     @Override
     public int getHeight() {
         if (InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 340)) {
-            return 25 + getTooltipText().size() * 9;
+            return 33 + getTooltipText().size() * 9;
         } else if (!ConfigInit.CONFIG.showHoldShiftInfo) {
-            return 11;
+            return 20;
         }
-        return 23;
+        return 34;
     }
 
     @Override
